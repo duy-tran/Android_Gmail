@@ -1,19 +1,13 @@
 USTH ICT 2017 Android Development
-=====================================
-
-Students are expected to:
-* Fork this repository to your github account
-* Create new project with Android Studio / Eclipse ADT
-* Append name (and purpose) of your project to this README file
-* Push your commits regularly, with **proper** commit messages
-
 
 Member list
 =====================================
 
-*Add student list of your group here*
+* Tran Quang Duy 
+* Vu Binh Duong
+* Pham Tan Thanh
 
 Project description
 =====================================
 
-*Add your project description here*
+Our project is to develop the email application on Android.
