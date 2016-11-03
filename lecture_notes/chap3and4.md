@@ -47,13 +47,7 @@ Size of layout can be distributed by weight
 
 ### Relative Layout
 
-+------------------------+------------------------+-------------------------+
-| Top left               | Top center-vertical    | Top right               |
-+------------------------+------------------------+-------------------------+
-| Left center-horizontal | Center                 | Right center-horizontal |
-+------------------------+------------------------+-------------------------+
-| Bottom left            | Bottom center-vertical | Bottom right            |
-+------------------------+------------------------+-------------------------+
+*Example: * Top left, left center-horizontal, bottom left
 
 Children are relative to parent and to each other 
 
