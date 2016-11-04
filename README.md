@@ -1,16 +1,17 @@
 USTH ICT 2017 Android Development
 =================================
 
-Member list
-===========
+Group 3
+-------
 
--   Tran Quang Duy
+### Member list
 
--   Vu Binh Duong
+-   Tran Quang Duy - duy9968\@gmail.com
 
--   Pham Tan Thanh
+-   Vu Binh Duong - badboy.hp96\@gmail.com
 
-Project description
-===================
+-   Pham Tien Thanh - vicnoob.gg\@gmail.com
+
+### Project description
 
 Our project is to develop the email application on Android.
