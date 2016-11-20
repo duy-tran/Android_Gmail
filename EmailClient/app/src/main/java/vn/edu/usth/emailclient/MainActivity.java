@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent myIntent = new Intent(getApplicationContext(), WriteMailActivity.class);
+                getApplicationContext().startActivity(myIntent);
             }
         });
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_sent) {
 
         } else if (id == R.id.nav_draft) {
