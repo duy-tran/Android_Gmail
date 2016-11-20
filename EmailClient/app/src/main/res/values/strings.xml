@@ -5,6 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="user_name">Le Huu Ton</string>
+    <string name="mail_service">Gmail</string>
     <string name="user_email">lehuuton@gmail.com</string>
 </resources>
