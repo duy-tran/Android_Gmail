@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_inbox"
+            android:icon="@drawable/ic_menu_inbox"
+            android:title="Inbox" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_sent"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Sent" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_draft"
+            android:icon="@drawable/ic_menu_draft"
+            android:title="Draft" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_spam"
+            android:icon="@drawable/ic_menu_spam"
+            android:title="Spam" />
+        <item
+            android:id="@+id/nav_trash"
+            android:icon="@drawable/ic_menu_trash"
+            android:title="Trash" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
+    <group>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_settings"
+                android:title="Settings" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+                android:id="@+id/nav_"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="Logout" />
+    </group>
 
 </menu>
