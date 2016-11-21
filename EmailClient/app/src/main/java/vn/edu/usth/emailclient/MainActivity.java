@@ -1,11 +1,13 @@
 package vn.edu.usth.emailclient;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -120,6 +122,24 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_trash) {
 
+        } else if (id == R.id.nav_logout) {
+            new AlertDialog.Builder(this)
+                    .setMessage(getResources().getString(R.string.confirmLogout))
+                    .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_out), Toast.LENGTH_LONG).show();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    getApplicationContext().startActivity(myIntent);
+                                }
+                            }, 1000);
+                        }
+                    })
+                    .setNegativeButton(getResources().getString(R.string.cancel), null)
+                    .show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

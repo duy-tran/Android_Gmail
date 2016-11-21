@@ -45,14 +45,14 @@ public class WriteMailActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.exit) {
             new AlertDialog.Builder(this)
-                    .setMessage("Delete this message?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setMessage(getResources().getString(R.string.confirmDelete))
+                    .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     })
-                    .setNegativeButton("No", null)
+                    .setNegativeButton(getResources().getString(R.string.cancel), null)
                     .show();
             return true;
         }

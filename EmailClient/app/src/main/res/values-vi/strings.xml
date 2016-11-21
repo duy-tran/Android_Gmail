@@ -15,4 +15,14 @@
     <string name="writemail_to">Đến:</string>
 
     <string name="cancel">Huỷ</string>
+
+    <string name="login">Đăng nhập</string>
+    <string name="email_address">Địa chỉ email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="missing_info">Vui lòng nhập email và mật khẩu</string>
+    <string name="wrong_info">Sai email hoặc mật khẩu</string>
+    <string name="logging_in">Đang đăng nhập...</string>
+    <string name="logging_out">Đang đăng xuất...</string>
+    <string name="confirmDelete">Xoá tin nhắn này?</string>
+    <string name="confirmLogout">Bạn có muốn đăng xuất?</string>
 </resources>

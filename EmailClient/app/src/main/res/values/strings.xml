@@ -26,7 +26,16 @@
     <string name="writemail_subject">Subject: </string>
     <string name="writemail_content">Content: </string>
 
-    <string name="prefKeyConfirmDelete">confirmDelete</string>
+    <string name="confirmDelete">Delete this message?</string>
+    <string name="confirmLogout">Do you want to log out?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
+    <string name="login">Login</string>
+    <string name="email_address">Email adress</string>
+    <string name="password">Password</string>
+    <string name="missing_info">Please fill email and password</string>
+    <string name="wrong_info">Incorrect email or password</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="logging_out">Logging out...</string>
 </resources>
