@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,7 +17,7 @@ public class WriteMailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Compose new email");
+        setTitle("Compose");
         setContentView(R.layout.activity_writemail);
 
         Toolbar myChildToolbar =
@@ -28,6 +29,12 @@ public class WriteMailActivity extends AppCompatActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_writemail, menu);
+        return true;
     }
 
     @Override
