@@ -17,7 +17,7 @@ public class WriteMailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Compose");
+        setTitle(getResources().getString(R.string.writemail_compose));
         setContentView(R.layout.activity_writemail);
 
         Toolbar myChildToolbar =

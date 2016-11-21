@@ -5,6 +5,7 @@
     android:fillViewport="true"
     android:scrollbars = "vertical"
     android:paddingTop="50dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:scrollbarStyle="insideInset">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
