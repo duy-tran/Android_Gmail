@@ -3,7 +3,7 @@
     <string name="search">Tìm kiếm</string>
     <string name="action_settings">Cài đặt</string>
     <string name="send">Gửi</string>
-
+    <string name="exit">Thoát</string>
     <string name="menu_inbox">Hộp thư đến</string>
     <string name="menu_sent">Thư đã gửi</string>
     <string name="menu_draft">Thư nháp</string>
@@ -13,4 +13,6 @@
     <string name="writemail_content">Nội dung:</string>
     <string name="writemail_subject">Chủ đề:</string>
     <string name="writemail_to">Đến:</string>
+
+    <string name="cancel">Huỷ</string>
 </resources>

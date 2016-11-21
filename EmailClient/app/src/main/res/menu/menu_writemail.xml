@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/exit"
+        android:icon="@drawable/exit"
+        android:title="@string/exit"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/send"
         android:icon="@drawable/ic_menu_send"
         android:title="@string/send"

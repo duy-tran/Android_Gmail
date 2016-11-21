@@ -1,13 +1,13 @@
 package vn.edu.usth.emailclient;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.MenuItem;
 
 /**
  * Created by duy on 11/20/16.
@@ -38,27 +38,25 @@ public class WriteMailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.send) {
+
+            return true;
+        } else if (id == R.id.exit) {
+            new AlertDialog.Builder(this)
+                    .setMessage("Delete this message?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-    }
 }
