@@ -27,6 +27,10 @@
             <!--</intent-filter>-->
         </activity>
         <activity
+            android:name=".LogActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".WriteMailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName="vn.edu.usth.emailclient.MainActivity">

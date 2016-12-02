@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186179762352",
+    "project_id": "email-150710"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186179762352:android:d74d2e629a4703a0",
+        "android_client_info": {
+          "package_name": "vn.edu.usth.emailclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186179762352-gomn4f7nf63apose239udiomr7cfi756.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.edu.usth.emailclient",
+            "certificate_hash": "EBAD4EF85A1572B261F2083274BA9A3EE83EEA39"
+          }
+        },
+        {
+          "client_id": "186179762352-l00m318hp6dqe0uc309lkl57ohpkk6ei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1G_5AoknZOfFG2Ugxr_n104ZSft9kw5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

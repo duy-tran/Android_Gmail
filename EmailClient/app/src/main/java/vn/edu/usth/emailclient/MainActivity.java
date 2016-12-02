@@ -78,28 +78,30 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.refresh) {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(500);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Bundle bundle = new Bundle();
-                    bundle.putString("server_response", "Refreshed");
-                    Message msg = new Message();
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } });
-            t.start();
-            handler = new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(Message msg) {
-                    Toast.makeText(getApplicationContext(), msg.getData().getString("server_response"), Toast.LENGTH_LONG).show();
-                }
-            };
+            Intent myIntent = new Intent(getApplicationContext(), LogActivity.class);
+            getApplicationContext().startActivity(myIntent);
+//            Thread t = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        Thread.sleep(500);
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("server_response", "Refreshed");
+//                    Message msg = new Message();
+//                    msg.setData(bundle);
+//                    handler.sendMessage(msg);
+//                } });
+//            t.start();
+//            handler = new Handler(Looper.getMainLooper()) {
+//                @Override
+//                public void handleMessage(Message msg) {
+//                    Toast.makeText(getApplicationContext(), msg.getData().getString("server_response"), Toast.LENGTH_LONG).show();
+//                }
+//            };
             return true;
         }
 
