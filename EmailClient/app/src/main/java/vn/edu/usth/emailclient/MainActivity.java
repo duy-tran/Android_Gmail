@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -49,6 +52,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
+        email.setText(Shared.getInstance().getUserEmail());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        TextView userName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_name);
+        userName.setText(Shared.getInstance().getUserName());
     }
 
     @Override
@@ -78,28 +91,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.refresh) {
-//            Thread t = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(500);
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("server_response", "Refreshed");
-//                    Message msg = new Message();
-//                    msg.setData(bundle);
-//                    handler.sendMessage(msg);
-//                } });
-//            t.start();
-//            handler = new Handler(Looper.getMainLooper()) {
-//                @Override
-//                public void handleMessage(Message msg) {
-//                    Toast.makeText(getApplicationContext(), msg.getData().getString("server_response"), Toast.LENGTH_LONG).show();
-//                }
-//            };
             return true;
         }
 
@@ -129,13 +120,8 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_out), Toast.LENGTH_LONG).show();
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    getApplicationContext().startActivity(myIntent);
-                                }
-                            }, 1000);
+                            Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                            getApplicationContext().startActivity(myIntent);
                         }
                     })
                     .setNegativeButton(getResources().getString(R.string.cancel), null)

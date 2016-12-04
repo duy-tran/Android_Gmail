@@ -26,8 +26,8 @@ import javax.mail.Store;
  */
 
 public class LoginActivity extends AppCompatActivity{
-    public String userEmail;
-    public String userPassword;
+    private String userEmail;
+    private String userPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,16 +36,17 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     public void login(View v) throws Exception{
-        EditText email = (EditText)findViewById(R.id.emailaddr);
-        String email_str     =  email.getText().toString();
-        EditText password = (EditText)findViewById(R.id.password);
-        String password_str     =  password.getText().toString();
-        if (email_str.equals("") || password_str.equals("")) {
+        userEmail =  ((EditText)findViewById(R.id.emailaddr)).getText().toString();
+        userPassword = ((EditText)findViewById(R.id.password)).getText().toString();
+        if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_info), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_in), Toast.LENGTH_LONG).show();
-            if (login_server(email_str,password_str)){
-                Log.i("login check","LOGGED IN!!!!");
+            if (login()){
+                Shared.getInstance().setUserEmail(userEmail);
+                Shared.getInstance().setUserPassword(userPassword);
+                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                getApplicationContext().startActivity(myIntent);
             } else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.wrong_info), Toast.LENGTH_LONG).show();
             }
@@ -54,10 +55,10 @@ public class LoginActivity extends AppCompatActivity{
 
 
 
-    private boolean login_server(final String email, final String password) throws Exception{
-        AsyncTask<String, Integer, Boolean> task = new AsyncTask<String, Integer, Boolean>() {
+    private boolean login() throws Exception{
+        AsyncTask<Void, Integer, Boolean> task = new AsyncTask<Void, Integer, Boolean>() {
             @Override
-            protected Boolean doInBackground(String... strings) {
+            protected Boolean doInBackground(Void... voids) {
                 Properties props = new Properties();
                 props.setProperty("mail.store.protocol", "imaps");
                 Session session = Session.getInstance(props,null);
@@ -69,9 +70,8 @@ public class LoginActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
                 try {
-                    store.connect("imap.gmail.com",email,password);
-                    userEmail = email;
-                    userPassword = password;
+                    store.connect("imap.gmail.com",userEmail,userPassword);
+                    Shared.getInstance().setStore(store);
                     return true;
                 } catch (MessagingException e) {
                     e.printStackTrace();
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity{
                 return false;
             }
         };
-        return task.execute(email,password).get();
+        return task.execute().get();
     }
 
     public String getUserEmail() {
