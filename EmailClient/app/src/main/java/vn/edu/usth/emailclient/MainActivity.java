@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
+            Intent myIntent = new Intent(getApplicationContext(), ReadMailActivity.class);
+            getApplicationContext().startActivity(myIntent);
 
         } else if (id == R.id.nav_sent) {
 
