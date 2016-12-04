@@ -3,6 +3,7 @@ package vn.edu.usth.emailclient.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,26 +17,36 @@ import vn.edu.usth.emailclient.R;
  */
 
 public class FolderFragment extends Fragment {
-    String label = "";
+    String label = "?";
 
     public FolderFragment() {
         super();
     }
 
+    public static FolderFragment newInstance(String label) {
+        FolderFragment myFragment = new FolderFragment();
+
+        Bundle args = new Bundle();
+        args.putString("label", label);
+        myFragment.setArguments(args);
+
+        return myFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (label.equals("")) {
-            String[] data = {"4", "2", "0"};
-            View v = inflater.inflate(R.layout.folder_fragment, container, false);
-            ListView lv = (ListView) v.findViewById(R.id.list_mail);
-            lv.setAdapter(new CustomAdapter(getContext(), data));
-            return v;
-        }
-        return null;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
+        String[] data = {"4", "2", "0"};
+        //label = getArguments().getString("label");
+        View v = inflater.inflate(R.layout.folder_fragment, container, false);
+        ListView lv = (ListView) v.findViewById(R.id.list_mail);
+        lv.setAdapter(new CustomAdapter(getContext(), data));
+        Log.i("Label",label);
+        return v;
     }
 }
