@@ -103,7 +103,7 @@ public class ReadMailActivity extends AppCompatActivity {
                 try {
                     Session session = Session.getInstance(props, null);
                     Store store = session.getStore();
-                    store.connect("imap.gmail.com", "chuyendivote001@gmail.com", "ict12345");
+                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
                     Folder inbox = store.getFolder("INBOX");
                     inbox.open(Folder.READ_ONLY);
                     Message msg = inbox.getMessage(inbox.getMessageCount());
