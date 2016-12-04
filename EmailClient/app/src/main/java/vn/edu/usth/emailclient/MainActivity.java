@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,13 +20,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import vn.edu.usth.emailclient.Fragment.FolderFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Handler handler;
+    private static final int MSG_SHOW_TOAST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,9 @@ public class MainActivity extends AppCompatActivity
 
         TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
         email.setText(Shared.getInstance().getUserEmail());
+
+        FolderFragment mails = new FolderFragment();
+        mails.setLabel("INBOX");
     }
 
     @Override

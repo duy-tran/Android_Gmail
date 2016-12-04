@@ -17,14 +17,13 @@
     <string name="menu_trash">Trash</string>
     <string name="menu_logout">Log Out</string>
 
-    <string name="user_name">Le Huu Ton</string>
     <string name="user_email">lehuuton@gmail.com</string>
 
     <string name="writemail_compose">Compose</string>
-    <string name="writemail_to">To: </string>
-    <string name="writemail_cc">CC: </string>
-    <string name="writemail_subject">Subject: </string>
-    <string name="writemail_content">Content: </string>
+    <string name="writemail_to">To </string>
+    <string name="writemail_cc">CC </string>
+    <string name="writemail_subject">Subject</string>
+    <string name="writemail_content">Content</string>
 
     <string name="confirmDelete">Delete this message?</string>
     <string name="confirmLogout">Do you want to log out?</string>
@@ -32,7 +31,7 @@
     <string name="cancel">Cancel</string>
 
     <string name="login">Login</string>
-    <string name="email_address">Email adress</string>
+    <string name="email_address">Gmail address</string>
     <string name="password">Password</string>
     <string name="missing_info">Please fill email and password</string>
     <string name="wrong_info">Failed to log in</string>
@@ -41,4 +40,8 @@
     <string name="readmail">Read mail</string>
     <string name="reply">Reply</string>
     <string name="foward">foward</string>
+    <string name="mail_sending">Sending mail</string>
+    <string name="mail_sent">Mail sent</string>
+    <string name="mail_sent_fail">Failed to send mail</string>
+    <string name="user_name">Your name</string>
 </resources>

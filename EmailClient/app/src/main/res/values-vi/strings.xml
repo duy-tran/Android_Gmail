@@ -10,14 +10,14 @@
     <string name="menu_trash">Thùng rác</string>
     <string name="menu_logout">Đăng xuất</string>
     <string name="writemail_compose">Soạn</string>
-    <string name="writemail_content">Nội dung:</string>
-    <string name="writemail_subject">Chủ đề:</string>
-    <string name="writemail_to">Đến:</string>
+    <string name="writemail_content">Nội dung</string>
+    <string name="writemail_subject">Chủ đề</string>
+    <string name="writemail_to">Đến</string>
 
     <string name="cancel">Huỷ</string>
 
     <string name="login">Đăng nhập</string>
-    <string name="email_address">Địa chỉ email</string>
+    <string name="email_address">Địa chỉ Gmail</string>
     <string name="password">Mật khẩu</string>
     <string name="missing_info">Vui lòng nhập email và mật khẩu</string>
     <string name="wrong_info">Đăng nhập thất bại</string>
@@ -25,4 +25,8 @@
     <string name="logging_out">Đang đăng xuất...</string>
     <string name="confirmDelete">Xoá tin nhắn này?</string>
     <string name="confirmLogout">Bạn có muốn đăng xuất?</string>
+    <string name="mail_sending">Đang gửi thư</string>
+    <string name="mail_sent">Đã gửi</string>
+    <string name="mail_sent_fail">Gửi thất bại</string>
+    <string name="user_name">Tên của bạn</string>
 </resources>
