@@ -10,9 +10,9 @@
     <string name="menu_trash">Thùng rác</string>
     <string name="menu_logout">Đăng xuất</string>
     <string name="writemail_compose">Soạn</string>
-    <string name="writemail_content">Nội dung:</string>
-    <string name="writemail_subject">Chủ đề:</string>
-    <string name="writemail_to">Đến:</string>
+    <string name="writemail_content">Nội dung</string>
+    <string name="writemail_subject">Chủ đề</string>
+    <string name="writemail_to">Đến</string>
 
     <string name="cancel">Huỷ</string>
 

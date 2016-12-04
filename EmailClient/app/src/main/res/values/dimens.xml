@@ -9,4 +9,7 @@
     <dimen name="activity_bottom_margin">4dp</dimen>
     <dimen name="activity_top_margin">14dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="textedit_height">50dp</dimen>
+    <dimen name="textedit_padding_left">15dp</dimen>
+    <dimen name="textedit_padding_left_big">40dp</dimen>
 </resources>

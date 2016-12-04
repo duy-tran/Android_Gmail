@@ -20,10 +20,10 @@
     <string name="user_email">lehuuton@gmail.com</string>
 
     <string name="writemail_compose">Compose</string>
-    <string name="writemail_to">To: </string>
-    <string name="writemail_cc">CC: </string>
-    <string name="writemail_subject">Subject: </string>
-    <string name="writemail_content">Content: </string>
+    <string name="writemail_to">To </string>
+    <string name="writemail_cc">CC </string>
+    <string name="writemail_subject">Subject</string>
+    <string name="writemail_content">Content</string>
 
     <string name="confirmDelete">Delete this message?</string>
     <string name="confirmLogout">Do you want to log out?</string>
