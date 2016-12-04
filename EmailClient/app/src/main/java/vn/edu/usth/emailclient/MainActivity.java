@@ -20,8 +20,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import vn.edu.usth.emailclient.Fragment.FolderFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity
 
         TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
         email.setText(Shared.getInstance().getUserEmail());
+
+        FolderFragment mails = new FolderFragment();
+        mails.setLabel("INBOX");
     }
 
     @Override
