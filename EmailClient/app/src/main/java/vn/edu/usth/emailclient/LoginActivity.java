@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity{
     public void login(View v) throws Exception{
         userEmail =  ((EditText)findViewById(R.id.emailaddr)).getText().toString();
         userPassword = ((EditText)findViewById(R.id.password)).getText().toString();
+        Shared.getInstance().setUserName(((EditText)findViewById(R.id.user_name)).getText().toString());
         if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_info), Toast.LENGTH_LONG).show();
         } else {

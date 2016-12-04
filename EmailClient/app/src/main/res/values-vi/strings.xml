@@ -17,7 +17,7 @@
     <string name="cancel">Huỷ</string>
 
     <string name="login">Đăng nhập</string>
-    <string name="email_address">Địa chỉ email</string>
+    <string name="email_address">Địa chỉ Gmail</string>
     <string name="password">Mật khẩu</string>
     <string name="missing_info">Vui lòng nhập email và mật khẩu</string>
     <string name="wrong_info">Đăng nhập thất bại</string>
@@ -28,4 +28,5 @@
     <string name="mail_sending">Đang gửi thư</string>
     <string name="mail_sent">Đã gửi</string>
     <string name="mail_sent_fail">Gửi thất bại</string>
+    <string name="user_name">Tên của bạn</string>
 </resources>
