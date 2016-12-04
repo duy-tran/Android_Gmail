@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity
         TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
         email.setText(Shared.getInstance().getUserEmail());
 
-        FolderFragment mails = new FolderFragment();
-        mails.setLabel("INBOX");
+        //FolderFragment.newInstance("Inbox");
+        Bundle args = new Bundle();
+        args.putString("label", "inbox");
+        FolderFragment.instantiate(this, FolderFragment.class.getName(), args);
     }
 
     @Override
