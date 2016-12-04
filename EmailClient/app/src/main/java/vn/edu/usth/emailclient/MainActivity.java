@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.refresh) {
-            Intent myIntent = new Intent(getApplicationContext(), LogActivity.class);
-            getApplicationContext().startActivity(myIntent);
 //            Thread t = new Thread(new Runnable() {
 //                @Override
 //                public void run() {
