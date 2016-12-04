@@ -38,4 +38,7 @@
     <string name="wrong_info">Failed to log in</string>
     <string name="logging_in">Logging in...</string>
     <string name="logging_out">Logging out...</string>
+    <string name="readmail">Read mail</string>
+    <string name="reply">Reply</string>
+    <string name="foward">foward</string>
 </resources>
