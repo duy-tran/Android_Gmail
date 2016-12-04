@@ -25,8 +25,10 @@ import java.util.Properties;
 
 import javax.mail.Address;
 import javax.mail.BodyPart;
+import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Store;
@@ -41,6 +43,7 @@ public class ReadMailActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,11 @@ public class ReadMailActivity extends AppCompatActivity {
             case R.id.refresh:
 
                 return true;
+            case R.id.delete:
+                key = 1;
+                read();
+                finish();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -100,14 +108,18 @@ public class ReadMailActivity extends AppCompatActivity {
                 String s2 = null;
                 String s3 = null;
                 String s4 = null;
+                Folder inbox = null;
                 try {
                     Session session = Session.getInstance(props, null);
                     Store store = session.getStore();
                     store.connect("imap.gmail.com", "chuyendivote001@gmail.com", "ict12345");
-                    Folder inbox = store.getFolder("INBOX");
-                    inbox.open(Folder.READ_ONLY);
+                    inbox = store.getFolder("INBOX");
+                    inbox.open(Folder.READ_WRITE);
+
                     Message msg = inbox.getMessage(inbox.getMessageCount());
                     Address[] in = msg.getFrom();
+
+
                     Address[] out = msg.getAllRecipients();
                     for (Address address : in) {
 //                                System.out.println("FROM:" + address.toString());
@@ -130,9 +142,20 @@ public class ReadMailActivity extends AppCompatActivity {
 //                            System.out.println("SUBJECT:" + msg.getSubject());
                     s2 = (String) bp.getContent();
 //                            System.out.println("CONTENT:" + bp.getContent());
+                    if (key == 1) {
+                        msg.setFlag(Flags.Flag.DELETED, true);
+//                        inbox.close(true);
+                    }
+
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }
+                try {
+                    inbox.close(true);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+
                 return new String[]{s, s1, s2, s3, s4};
 
             }
@@ -160,7 +183,10 @@ public class ReadMailActivity extends AppCompatActivity {
                 TextView content = (TextView) findViewById(R.id.content_value);
                 content.setText(s[2]);
                 content.setMovementMethod(new ScrollingMovementMethod());
-
+                if(key==1){
+                    finish();
+                }
+                key = 0;
 
             }
 
