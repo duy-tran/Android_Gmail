@@ -21,14 +21,13 @@
                 android:text="@string/writemail_to"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView4" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
-                android:id="@+id/editText" />
+                android:id="@+id/receiver" />
             </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -38,14 +37,13 @@
                 android:text="@string/writemail_cc"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView5" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
-                android:id="@+id/editText1" />
+                android:id="@+id/receiver_cc" />
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -55,14 +53,13 @@
                 android:text="@string/writemail_subject"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:ems="10"
-                android:id="@+id/editText2" />
+                android:id="@+id/subject" />
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -72,8 +69,7 @@
                 android:text="@string/writemail_content"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -85,7 +81,7 @@
                 android:layout_margin="15dp"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/editText3"
+                android:id="@+id/content"
                 android:layout_weight="1"
                 android:gravity="top"
                 />

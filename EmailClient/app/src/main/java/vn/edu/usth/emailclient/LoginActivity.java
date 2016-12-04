@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
-
     private boolean login() throws Exception{
         AsyncTask<Void, Integer, Boolean> task = new AsyncTask<Void, Integer, Boolean>() {
             @Override

@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Handler handler;
+    private static final int MSG_SHOW_TOAST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
