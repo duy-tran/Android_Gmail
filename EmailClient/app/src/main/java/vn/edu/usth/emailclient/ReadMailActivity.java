@@ -113,7 +113,7 @@ public class ReadMailActivity extends AppCompatActivity {
                     Session session = Session.getInstance(props, null);
                     Store store = session.getStore();
 
-                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword();
+                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
                     inbox = store.getFolder("INBOX");
                     inbox.open(Folder.READ_WRITE);
 
