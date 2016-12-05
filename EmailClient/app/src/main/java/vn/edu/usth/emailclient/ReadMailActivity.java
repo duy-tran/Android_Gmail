@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -167,11 +168,12 @@ public class ReadMailActivity extends AppCompatActivity {
                     r_date = mailItem.getDate().toString();
                     Folder dfolder1 = Shared.getInstance().getStore().getFolder("[Gmail]/Trash");
                     if (delete == 1 ) {
-
-                        
-                        if (!dfolder1.exists())
-                            dfolder1.create(Folder.HOLDS_MESSAGES);
-                        inbox.copyMessages(new Message[]{msg}, dfolder1);
+                        if(!inbox.toString().equals(dfolder1.toString())){
+                            if (!dfolder1.exists()) {
+                                dfolder1.create(Folder.HOLDS_MESSAGES);
+                            }
+                            inbox.copyMessages(new Message[]{msg}, dfolder1);
+                        }
                         msg.setFlag(Flags.Flag.DELETED, true);
 
                     }
@@ -185,11 +187,11 @@ public class ReadMailActivity extends AppCompatActivity {
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }
-//                try {
-//                    inbox.close(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    inbox.close(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 return new String[]{r_subject, r_adr, r_content, r_recipients, r_date};
 
