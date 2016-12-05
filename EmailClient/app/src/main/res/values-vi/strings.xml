@@ -30,4 +30,10 @@
     <string name="mail_sent_fail">Gửi thất bại</string>
     <string name="user_name">Tên của bạn</string>
     <string name="loading">Đang tải</string>
+    <string name="change_user_name">Sửa tên</string>
+    <string name="delete">Xoá</string>
+    <string name="forward">Chuyển tiếp</string>
+    <string name="move">Đánh dấu spam</string>
+    <string name="readmail">Xem thư</string>
+    <string name="reply">Trả lời</string>
 </resources>

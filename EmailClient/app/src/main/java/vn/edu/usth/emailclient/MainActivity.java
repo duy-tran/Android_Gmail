@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity
     private void switchTo(String label) {
         loadFolder(label);
         currentFolder = label;
-        setTitle(Shared.titles.get(label));
+        setTitle(Shared.getInstance().getFolderName(getApplicationContext(),label));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
