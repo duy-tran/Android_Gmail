@@ -10,6 +10,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -28,6 +29,8 @@ import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import static vn.edu.usth.emailclient.R.id.subject;
+
 /**
  * Created by THANH on 12/4/2016.
  */
@@ -39,6 +42,11 @@ public class ReadMailActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private int key;
+    private String s = null;
+    private String s1 = null;
+    private String s2 = null;
+    private String s3 = null;
+    private String s4 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +89,31 @@ public class ReadMailActivity extends AppCompatActivity {
                 read();
                 finish();
                 return true;
-
+            case R.id.forward:
+                Intent intent = new Intent(ReadMailActivity.this, WriteMailActivity.class);
+                Bundle b = new Bundle();
+                b.putString("content", s2.toString());
+                b.putString("subject", s.toString());
+                intent.putExtras(b);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.reply:
+                Intent intent1 = new Intent(ReadMailActivity.this, WriteMailActivity.class);
+                Bundle b1 = new Bundle();
+                b1.putString("receiver", s1.toString() );
+                b1.putString("content", s2.toString());
+                b1.putString("subject", s.toString());
+                b1.putString("date", s4.toString());
+                intent1.putExtras(b1);
+                startActivity(intent1);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     public void read() {
         AsyncTask<String, Integer, String[]> task = new AsyncTask<String, Integer, String[]>() {
@@ -98,11 +126,7 @@ public class ReadMailActivity extends AppCompatActivity {
                 Properties props = new Properties();
                 props.setProperty("mail.store.protocol", "imaps");
 
-                String s = null;
-                String s1 = null;
-                String s2 = null;
-                String s3 = null;
-                String s4 = null;
+
                 Folder inbox = null;
                 try {
                     Session session = Session.getInstance(props, null);
@@ -123,7 +147,7 @@ public class ReadMailActivity extends AppCompatActivity {
 
                     }
                     for (Address address : out) {
-//                                System.out.println("FROM:" + address.toString());
+//
                         s3 = address.toString();
 
                     }
