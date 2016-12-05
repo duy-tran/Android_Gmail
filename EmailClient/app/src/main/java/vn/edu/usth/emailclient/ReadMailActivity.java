@@ -1,25 +1,20 @@
 package vn.edu.usth.emailclient;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.w3c.dom.Text;
 
 import java.util.Properties;
 
@@ -113,7 +108,7 @@ public class ReadMailActivity extends AppCompatActivity {
                     Session session = Session.getInstance(props, null);
                     Store store = session.getStore();
 
-                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword();
+                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
                     inbox = store.getFolder("INBOX");
                     inbox.open(Folder.READ_WRITE);
 
