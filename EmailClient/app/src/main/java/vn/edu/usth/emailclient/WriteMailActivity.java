@@ -18,9 +18,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -174,13 +178,17 @@ public class WriteMailActivity extends AppCompatActivity {
             BodyPart bodyPart = new MimeBodyPart();
             bodyPart.setText(content);
             multipart.addBodyPart(bodyPart);
-            msg.setHeader("X-Priority", "1");
+//
             msg.setContent(multipart);
+            msg.setHeader("X-Priority", "1");
+//            msg.setContent(multipart);
 
             Transport.send(msg);
             return true;
         }
         return false;
     }
+
+
 
 }
