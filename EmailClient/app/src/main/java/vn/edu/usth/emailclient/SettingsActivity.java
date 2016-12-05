@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.security.AccessController.getContext;
 import static vn.edu.usth.emailclient.Shared.getInstance;
 
 /**
@@ -20,14 +21,15 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_main);
+        setTitle(getResources().getString(R.string.action_settings));
+        EditText editText = (EditText) findViewById(R.id.changeName);
+        editText.setText(Shared.getInstance().getUserName());
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        TextView textView = (TextView) findViewById(R.id.textView5);
-        textView.setText("Current name:" + getInstance().getUserName());
         Button submit= (Button) findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
 
@@ -37,10 +39,11 @@ public class SettingsActivity extends AppCompatActivity {
             {
                 EditText edit =  (EditText) findViewById(R.id.changeName);
                 String newName = edit.getText().toString();
-                getInstance().setUserName(newName);
-                TextView textView = (TextView) findViewById(R.id.textView5);
-                textView.setText("Current name: " + getInstance().getUserName());
+                Shared.getInstance().setUserName(newName);
+//                TextView textView = (TextView) findViewById(R.id.textView5);
+//                textView.setText("Current name: " + getInstance().getUserName());
                 Toast.makeText(getApplicationContext(), "User name changed successfully", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }

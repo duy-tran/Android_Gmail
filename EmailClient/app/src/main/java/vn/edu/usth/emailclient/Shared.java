@@ -1,5 +1,7 @@
 package vn.edu.usth.emailclient;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -36,15 +38,19 @@ public class Shared {
     public static final String folderSpam = "[Gmail]/Spam";
     public static final String folderTrash = "[Gmail]/Trash";
 
-    public static HashMap<String, String> titles;
+    public static HashMap<String, Integer> titles;
     static
     {
         titles = new HashMap<>();
-        titles.put(folderInbox,"Inbox");
-        titles.put(folderSent,"Sent");
-        titles.put(folderDraft,"Drafts");
-        titles.put(folderSpam,"Spam");
-        titles.put(folderTrash,"Trash");
+        titles.put(folderInbox,R.string.menu_inbox);
+        titles.put(folderSent,R.string.menu_sent);
+        titles.put(folderDraft,R.string.menu_draft);
+        titles.put(folderSpam,R.string.menu_spam);
+        titles.put(folderTrash,R.string.menu_trash);
+    }
+
+    public String getFolderName(Context context, String label){
+        return context.getString(titles.get(label));
     }
 
     public static final String[] folderNames = {folderInbox,folderSent,folderDraft,folderSpam,folderTrash};

@@ -39,12 +39,13 @@
     <string name="logging_out">Logging out...</string>
     <string name="readmail">Read mail</string>
     <string name="reply">Reply</string>
-    <string name="forward">forward</string>
+    <string name="forward">Forward</string>
     <string name="mail_sending">Sending mail</string>
     <string name="mail_sent">Mail sent</string>
     <string name="mail_sent_fail">Failed to send mail</string>
     <string name="user_name">Your name</string>
-    <string name="delete">delete</string>
-    <string name="move">move</string>
+    <string name="delete">Delete</string>
+    <string name="move">Move to spam</string>
     <string name="loading">Loading, please wait</string>
+    <string name="change_user_name">Change user name</string>
 </resources>
