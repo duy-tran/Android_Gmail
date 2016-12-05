@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -22,13 +23,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Store;
+
 import vn.edu.usth.emailclient.Fragment.FolderFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Handler handler;
-    private static final int MSG_SHOW_TOAST = 1;
+    private static int MAX_MESSAGES = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        addFragment("I");
+
+        loadAllFolder();
+        addFragment("Inbox");
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +65,35 @@ public class MainActivity extends AppCompatActivity
 
         TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
         email.setText(Shared.getInstance().getUserEmail());
+    }
 
+    private void loadAllFolder(){
+        System.out.println("Loading all folder");
+        AsyncTask<Void, Integer, Message[]> task = new AsyncTask<Void, Integer, Message[]>() {
+            @Override
+            protected Message[] doInBackground(Void... voids) {
+                Store store = Shared.getInstance().getStore();
+                try {
+                    Folder inboxFolder = store.getFolder("INBOX");
+                    inboxFolder.open(Folder.READ_ONLY);
+                    int totalMessage = inboxFolder.getMessageCount();
+                    int lastMessageIndex = totalMessage-MAX_MESSAGES+1;
+                    if (lastMessageIndex<1)
+                        lastMessageIndex=1;
+                    Message[] messages = inboxFolder.getMessages(lastMessageIndex,totalMessage);
+                    return messages;
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Message[] messages) {
+                Shared.getInstance().setMessagesFolder("INBOX",messages);
+            }
+        };
+        task.execute();
     }
 
     private void addFragment(String label){

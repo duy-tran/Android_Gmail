@@ -1,8 +1,10 @@
 package vn.edu.usth.emailclient;
 
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
+import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Store;
 
@@ -16,12 +18,31 @@ public class Shared {
     private String userEmail;
     private String userPassword;
     private Store store;
+    /*
+        HashMap messages
+        String: Folder name
+        Message[]: Array of messages in that folder
+     */
+    private HashMap<String, Message[]> messagesFolder = new HashMap<>();
+
+    public static final String folderInbox = "Inbox";
 
     public static Shared getInstance(){
         if (instance == null) {
             instance = new Shared();
         }
         return instance;
+    }
+
+    public Message[] getMessagesFolder(String folderName){
+        if (messagesFolder.get(folderName) != null) {
+            return messagesFolder.get(folderName);
+        }
+        return new Message[0];
+    }
+
+    public void setMessagesFolder(String folderName, Message[] messages){
+        messagesFolder.put(folderName,messages);
     }
 
     public Authenticator getAuthenticator(){

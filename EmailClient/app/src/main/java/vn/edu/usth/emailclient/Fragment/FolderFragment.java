@@ -1,5 +1,7 @@
 package vn.edu.usth.emailclient.Fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,13 +37,15 @@ public class FolderFragment extends android.app.Fragment {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String[] data = {"4", "2", "0"};
         if (label.equals("")){
-            label = "inbox";
+            label = "Inbox";
         }
+
         View v = inflater.inflate(R.layout.folder_fragment, container, false);
         ListView lv = (ListView) v.findViewById(R.id.list_mail);
         lv.setAdapter(new CustomAdapter(getContext(), data));
