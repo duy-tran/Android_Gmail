@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -61,7 +62,7 @@ public class ReadMailActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
+        //ab.setDisplayHomeAsUpEnabled(true);
         read();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -80,6 +81,10 @@ public class ReadMailActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
+            case R.id.up:
+                System.out.println("Press back button");
+                ReadMailActivity.this.onBackPressed();
+                return true;
             case R.id.move:
                 move = 1;
                 read();
@@ -117,6 +122,8 @@ public class ReadMailActivity extends AppCompatActivity {
 
 
     public void read() {
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", getResources().getString(R.string.loading), true);
+        progressDialog.show();
         AsyncTask<String, Integer, String[]> task = new AsyncTask<String, Integer, String[]>() {
             @Override
             protected void onPreExecute() {
@@ -182,6 +189,7 @@ public class ReadMailActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String[] s) {
+                progressDialog.dismiss();
                 TextView from = (TextView)findViewById(R.id.mail_from_value);
                 from.setText(s[1]);
 

@@ -220,6 +220,9 @@ public class MainActivity extends AppCompatActivity
                     })
                     .setNegativeButton(getResources().getString(R.string.cancel), null)
                     .show();
+        } else if (id == R.id.nav_setting) {
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
