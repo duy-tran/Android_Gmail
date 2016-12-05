@@ -47,6 +47,7 @@ public class ReadMailActivity extends AppCompatActivity {
     private String r_content = null;
     private String r_recipients = null;
     private String r_date = null;
+    private Bundle b = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,21 +98,24 @@ public class ReadMailActivity extends AppCompatActivity {
                 return true;
             case R.id.forward:
                 Intent intent = new Intent(ReadMailActivity.this, WriteMailActivity.class);
-                Bundle b = new Bundle();
+                b.putString("type", "fw");
+                b.putString("receiver", r_adr.toString() );
                 b.putString("content", r_content.toString());
                 b.putString("subject", r_subject.toString());
+                b.putString("date", r_date.toString());
                 intent.putExtras(b);
                 startActivity(intent);
                 finish();
                 return true;
             case R.id.reply:
                 Intent intent1 = new Intent(ReadMailActivity.this, WriteMailActivity.class);
-                Bundle b1 = new Bundle();
-                b1.putString("receiver", r_adr.toString() );
-                b1.putString("content", r_content.toString());
-                b1.putString("subject", r_subject.toString());
-                b1.putString("date", r_date.toString());
-                intent1.putExtras(b1);
+                Bundle b = new Bundle();
+                b.putString("type", "re");
+                b.putString("receiver", r_adr.toString() );
+                b.putString("content", r_content.toString());
+                b.putString("subject", r_subject.toString());
+                b.putString("date", r_date.toString());
+                intent1.putExtras(b);
                 startActivity(intent1);
                 finish();
             default:
