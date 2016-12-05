@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -28,8 +28,6 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Store;
-
-import static vn.edu.usth.emailclient.R.id.subject;
 
 /**
  * Created by THANH on 12/4/2016.
