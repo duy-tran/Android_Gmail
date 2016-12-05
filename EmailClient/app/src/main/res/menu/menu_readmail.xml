@@ -12,6 +12,11 @@
         android:title="@string/forward"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/move"
+        android:icon="@drawable/ic_menu_spam"
+        android:title="@string/move"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/reply"
         android:icon="@drawable/ic_menu_send"
         android:title="@string/reply"

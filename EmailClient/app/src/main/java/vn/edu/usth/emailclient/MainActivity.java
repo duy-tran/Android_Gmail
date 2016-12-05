@@ -169,6 +169,8 @@ public class MainActivity extends AppCompatActivity
              Intent i = new Intent(MainActivity.this, SettingsActivity.class);
              startActivity(i);
         } else if (id == R.id.refresh) {
+            Intent intent = new Intent(MainActivity.this, ReadMailActivity.class);
+            startActivity(intent);
             return true;
         }
 
