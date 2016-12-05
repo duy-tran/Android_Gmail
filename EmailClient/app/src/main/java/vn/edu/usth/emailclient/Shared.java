@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Store;
@@ -23,7 +24,9 @@ public class Shared {
         String: Folder name
         Message[]: Array of messages in that folder
      */
-    private HashMap<String, Message[]> messagesFolder = new HashMap<>();
+    private HashMap<String, Folder> messagesFolder = new HashMap<>();
+
+    public static final int MAX_MESSAGES = 10;
 
     public static final String folderInbox = "Inbox";
 
@@ -34,15 +37,15 @@ public class Shared {
         return instance;
     }
 
-    public Message[] getMessagesFolder(String folderName){
+    public Folder getMessagesFolder(String folderName){
         if (messagesFolder.get(folderName) != null) {
             return messagesFolder.get(folderName);
         }
-        return new Message[0];
+        return null;
     }
 
-    public void setMessagesFolder(String folderName, Message[] messages){
-        messagesFolder.put(folderName,messages);
+    public void setMessagesFolder(String folderName, Folder folder){
+        messagesFolder.put(folderName,folder);
     }
 
     public Authenticator getAuthenticator(){
