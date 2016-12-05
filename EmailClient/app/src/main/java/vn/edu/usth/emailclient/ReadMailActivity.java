@@ -127,16 +127,22 @@ public class ReadMailActivity extends AppCompatActivity {
                 Properties props = new Properties();
                 props.setProperty("mail.store.protocol", "imaps");
 
+                Intent mIntent  = getIntent();
+                String folder = mIntent.getStringExtra("Folder");
+                int index = mIntent.getIntExtra("Index",0);
 
                 Folder inbox = null;
                 try {
-                    Session session = Session.getInstance(props, null);
-                    Store store = session.getStore();
-                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
-                    inbox = store.getFolder("INBOX");
+//                    Session session = Session.getInstance(props, null);
+//                    Store store = session.getStore();
+//                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
+                    inbox = Shared.getInstance().getStore().getFolder(folder);
                     inbox.open(Folder.READ_WRITE);
 
-                    Message msg = inbox.getMessage(inbox.getMessageCount());
+                    Message msg  = Shared.getInstance().getMessagesFolder(folder)[index];
+                    MailItem mailItem = Shared.getInstance().getMailItems(folder)[index];
+
+                    //Message msg = inbox.getMessage(inbox.getMessageCount());
                     Address[] in = msg.getFrom();
 
 
@@ -151,23 +157,25 @@ public class ReadMailActivity extends AppCompatActivity {
                         s3 = address.toString();
 
                     }
-                    Multipart mp = (Multipart) msg.getContent();
-                    s4 = msg.getSentDate().toString();
-                    BodyPart bp = mp.getBodyPart(0);
+//                    Multipart mp = (Multipart) msg.getContent();
+                    s4 = mailItem.getDate().toString();
+//                    BodyPart bp = mp.getBodyPart(0);
 
 //                            System.out.println("SENT DATE:" + msg.getSentDate());
 
-                    s = msg.getSubject();
+//                    s = msg.getSubject();
+                    s = mailItem.getSubject();
 //                            subject.setText(msg.getSubject());
 //                            System.out.println("SUBJECT:" + msg.getSubject());
-                    s2 = (String) bp.getContent();
+//                    s2 = (String) bp.getContent();
+                    s2 = mailItem.getContent();
 //                            System.out.println("CONTENT:" + bp.getContent());
                     if (key == 1) {
                         msg.setFlag(Flags.Flag.DELETED, true);
 //                        inbox.close(true);
                     }
                     if (move ==1){
-                        Folder dfolder = store.getFolder("[Gmail]/Spam");
+                        Folder dfolder = Shared.getInstance().getStore().getFolder("[Gmail]/Spam");
                         if (!dfolder.exists())
                             dfolder.create(Folder.HOLDS_MESSAGES);
                         inbox.copyMessages(new Message[]{msg}, dfolder);

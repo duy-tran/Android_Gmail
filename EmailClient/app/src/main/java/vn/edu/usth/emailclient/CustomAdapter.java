@@ -23,15 +23,13 @@ public class CustomAdapter extends BaseAdapter {
 
     private Context context;
     private MailItem[] mailItems;
-    private Message[] messages;
 
     private static LayoutInflater inflater = null;
 
-    public CustomAdapter(Context context, MailItem[] mailItems, Message[] messages) {
+    public CustomAdapter(Context context, MailItem[] mailItems) {
         // Strings is temporary, should be replaced by array of mails
         this.context = context;
         this.mailItems = mailItems;
-        this.messages = messages;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -57,6 +55,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView subject;
         TextView content;
     }
+
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {

@@ -39,6 +39,13 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     boolean addedFragment = false;
+    boolean loaded = false;
+    String currentFolder = Shared.folderInbox;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +54,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadFolder(Shared.folderInbox);
+        if (!loaded) {
+            loadFolder(Shared.folderInbox);
+            loaded = true;
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +82,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadFolder(final String label){
-        System.out.println("Loading "+label);
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", getResources().getString(R.string.loading), true);
         progressDialog.show();
         AsyncTask<Void, Integer, Void> task = new AsyncTask<Void, Integer, Void>() {
@@ -170,15 +179,18 @@ public class MainActivity extends AppCompatActivity
              Intent i = new Intent(MainActivity.this, SettingsActivity.class);
              startActivity(i);
         } else if (id == R.id.refresh) {
-            Intent intent = new Intent(MainActivity.this, ReadMailActivity.class);
-            startActivity(intent);
+            loadFolder(currentFolder);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-
+    private void switchTo(String label) {
+        loadFolder(label);
+        currentFolder = label;
+        setTitle(Shared.titles.get(label));
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -187,15 +199,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            loadFolder(Shared.folderInbox);
+            switchTo(Shared.folderInbox);
         } else if (id == R.id.nav_sent) {
-            loadFolder(Shared.folderSent);
+            switchTo(Shared.folderSent);
         } else if (id == R.id.nav_draft) {
-            loadFolder(Shared.folderDraft);
+            switchTo(Shared.folderDraft);
         } else if (id == R.id.nav_spam) {
-            loadFolder(Shared.folderSpam);
+            switchTo(Shared.folderSpam);
         } else if (id == R.id.nav_trash) {
-            loadFolder(Shared.folderTrash);
+            switchTo(Shared.folderTrash);
         } else if (id == R.id.nav_logout) {
             new AlertDialog.Builder(this)
                     .setMessage(getResources().getString(R.string.confirmLogout))

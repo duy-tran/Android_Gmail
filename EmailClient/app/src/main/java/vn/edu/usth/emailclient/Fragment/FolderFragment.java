@@ -1,28 +1,22 @@
 package vn.edu.usth.emailclient.Fragment;
 
 import android.annotation.TargetApi;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.io.IOException;
-
-import javax.mail.BodyPart;
-import javax.mail.Folder;
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
 
 import vn.edu.usth.emailclient.CustomAdapter;
 import vn.edu.usth.emailclient.MailItem;
 import vn.edu.usth.emailclient.R;
+import vn.edu.usth.emailclient.ReadMailActivity;
 import vn.edu.usth.emailclient.Shared;
 
 /**
@@ -57,9 +51,19 @@ public class FolderFragment extends android.app.Fragment {
         }
         System.out.println("Label = "+label);
         View v = inflater.inflate(R.layout.folder_fragment, container, false);
-        MailItem[] mailItems = Shared.getInstance().getMailItems(label);
+        final MailItem[] mailItems = Shared.getInstance().getMailItems(label);
         ListView lv = (ListView) v.findViewById(R.id.list_mail);
-        lv.setAdapter(new CustomAdapter(getContext(), mailItems, Shared.getInstance().getMessagesFolder(label)));
+        lv.setAdapter(new CustomAdapter(getContext(), mailItems));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("You clicked item "+i);
+                Intent mIntent = new Intent(getContext(),ReadMailActivity.class);
+                mIntent.putExtra("Folder",label);
+                mIntent.putExtra("Index",mailItems.length-1-i);
+                startActivity(mIntent);
+            }
+        });
         return v;
     }
 }

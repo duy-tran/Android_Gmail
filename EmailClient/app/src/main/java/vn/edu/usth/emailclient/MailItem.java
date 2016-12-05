@@ -48,10 +48,15 @@ public class MailItem {
         return content;
     }
 
+    public Date getDate(){
+        return time;
+    }
+
     public String getSenderShort() {
-        String result;
+        String result = sender;
         int index = sender.indexOf("<");
-        result = sender.substring(0,index);
+        if (index>0)
+            result = sender.substring(0,index);
         if (result.length()>maxLengthSender)
             result = result.substring(0,maxLengthSender)+"...";
         return result;

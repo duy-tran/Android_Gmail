@@ -36,6 +36,17 @@ public class Shared {
     public static final String folderSpam = "[Gmail]/Spam";
     public static final String folderTrash = "[Gmail]/Trash";
 
+    public static HashMap<String, String> titles;
+    static
+    {
+        titles = new HashMap<>();
+        titles.put(folderInbox,"Inbox");
+        titles.put(folderSent,"Sent");
+        titles.put(folderDraft,"Drafts");
+        titles.put(folderSpam,"Spam");
+        titles.put(folderTrash,"Trash");
+    }
+
     public static final String[] folderNames = {folderInbox,folderSent,folderDraft,folderSpam,folderTrash};
 
     public static Shared getInstance(){
