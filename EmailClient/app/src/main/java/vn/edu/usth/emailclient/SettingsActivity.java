@@ -3,7 +3,13 @@ package vn.edu.usth.emailclient;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static vn.edu.usth.emailclient.Shared.getInstance;
 
 /**
  * Created by duong on 05/12/2016.
@@ -21,10 +27,26 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         TextView textView = (TextView) findViewById(R.id.textView5);
-        textView.setText(Shared.getInstance().getUserEmail());
-        TextView textView2 = (TextView) findViewById(R.id.textView7);
-        textView2.setText(Shared.getInstance().getUserName());
+        textView.setText("Current name:" + getInstance().getUserName());
+        Button submit= (Button) findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view)
+            {
+                EditText edit =  (EditText) findViewById(R.id.changeName);
+                String newName = edit.getText().toString();
+                getInstance().setUserName(newName);
+                TextView textView = (TextView) findViewById(R.id.textView5);
+                textView.setText("Current name: " + getInstance().getUserName());
+                Toast.makeText(getApplicationContext(), "User name changed successfully", Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
+
+
 
 
 

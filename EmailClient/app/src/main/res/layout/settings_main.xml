@@ -7,78 +7,52 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:text="Accounts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textAlignment="center" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <TextView
+            android:text="Change user name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:textSize="8pt"
+            android:textColor="#000000"
+            android:paddingTop="2pt"
+            android:textAlignment="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView5"
-            android:textSize="9pt"
-            android:textColor="#000000"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView7" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="29dp"
-            android:layout_height="33dp"
-            app:srcCompat="@drawable/add_icon"
-            android:id="@+id/imageView" />
-        <TextView
-            android:text="Add account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
             android:textSize="11pt"
-            android:layout_marginLeft="5pt"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:paddingTop="10pt" />
 
-    </LinearLayout>
-    <TextView
-        android:text="General"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:textAlignment="center"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt">
 
-    <Switch
-        android:text="Auto fit content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch2" />
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="60dp"
+                    app:srcCompat="@drawable/user_icon"
+                    android:id="@+id/imageView" />
 
-    <TextView
-        android:text="Notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView10" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/changeName"
+                    android:hint="new username"
+                    android:paddingLeft="5pt"/>
+        </LinearLayout>
 
-    <TextView
-        android:text="Spam addresses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView11" />
-
-    <Switch
-        android:text="Split view mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch3" />
-
+        <Button
+            android:text="Submit"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.Button" />
 
 
 </LinearLayout>
