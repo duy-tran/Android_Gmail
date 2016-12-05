@@ -89,13 +89,15 @@ public class ReadMailActivity extends AppCompatActivity {
                 return true;
             case R.id.move:
                 move = 1;
-//                read();
-                finish();
+                read();
+                Intent intent3 = new Intent(ReadMailActivity.this, MainActivity.class);
+                startActivity(intent3);
                 return true;
             case R.id.delete:
                 delete = 1;
-//                read();
-                finish();
+                read();
+                Intent intent2 = new Intent(ReadMailActivity.this, MainActivity.class);
+                startActivity(intent2);
                 return true;
             case R.id.forward:
                 Intent intent = new Intent(ReadMailActivity.this, WriteMailActivity.class);
