@@ -1,6 +1,7 @@
 package vn.edu.usth.emailclient;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,9 +24,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Store;
 
 import vn.edu.usth.emailclient.Fragment.FolderFragment;
@@ -35,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     private static int MAX_MESSAGES = 10;
 
+    private HashMap<String, Integer> setLayout = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadAllFolder();
+        loadFolder(Shared.folderInbox);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,22 +74,47 @@ public class MainActivity extends AppCompatActivity
         email.setText(Shared.getInstance().getUserEmail());
     }
 
-    private void loadAllFolder(){
+    private void loadFolder(final String label){
         System.out.println("Loading all folder");
-        AsyncTask<Void, Integer, Folder> task = new AsyncTask<Void, Integer, Folder>() {
+        AsyncTask<Void, Integer, Void> task = new AsyncTask<Void, Integer, Void>() {
             @Override
-            protected Folder doInBackground(Void... voids) {
+            protected void onProgressUpdate(Integer... values) {
+                ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                        "Loading. Please wait...", true);
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
                 Store store = Shared.getInstance().getStore();
+                Folder folder = null;
                 try {
-                    return store.getFolder(Shared.folderInbox);
+                    folder = store.getFolder(label);
+                    if (!folder.isOpen()) {
+                        folder.open(Folder.READ_WRITE);
+                    }
+                    int totalMessage = folder.getMessageCount();
+                    int lastMessageIndex = totalMessage - Shared.MAX_MESSAGES + 1;
+                    if (lastMessageIndex < 1)
+                        lastMessageIndex = 1;
+                    Message[] messages = folder.getMessages(lastMessageIndex, totalMessage);
+                    MailItem[] items = new MailItem[messages.length];
+                    for (int i = 0; i < messages.length; i++) {
+                        Multipart mp = (Multipart) messages[i].getContent();
+                        BodyPart bp = mp.getBodyPart(0);
+                        String content = (String) bp.getContent();
+                        items[i] = new MailItem(messages[i].getFrom()[0].toString(),messages[i].getSubject(),
+                                messages[i].getSentDate(),content);
+                    }
+                    Shared.getInstance().setMailItems(label,items);
                 } catch (MessagingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
             @Override
-            protected void onPostExecute(Folder folder) {
-                Shared.getInstance().setMessagesFolder(Shared.folderInbox,folder);
+            protected void onPostExecute(Void voids) {
                 addFragment(Shared.folderInbox);
             }
         };
@@ -91,6 +124,10 @@ public class MainActivity extends AppCompatActivity
     private void addFragment(String label){
         Fragment folderFragment = FolderFragment.newInstance(label);
         getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
+    }
+
+    private void replaceFragment(String label){
+
     }
 
     @Override
@@ -141,11 +178,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            addFragment("Inbox");
+            loadFolder(Shared.folderInbox);
         } else if (id == R.id.nav_sent) {
-            addFragment("Sent");
+            loadFolder(Shared.folderSent);
         } else if (id == R.id.nav_draft) {
-            addFragment("Draft");
+
         } else if (id == R.id.nav_spam) {
 
         } else if (id == R.id.nav_trash) {

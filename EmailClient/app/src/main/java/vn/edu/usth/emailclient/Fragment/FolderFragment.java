@@ -56,36 +56,11 @@ public class FolderFragment extends android.app.Fragment {
             label = Shared.folderInbox;
         }
         System.out.println("Label = "+label);
-        Folder data = Shared.getInstance().getMessagesFolder(label);
         final View v = inflater.inflate(R.layout.folder_fragment, container, false);
-        AsyncTask<Folder, Integer, MailItem[]> task = new AsyncTask<Folder, Integer, MailItem[]>() {
+        AsyncTask<Void, Integer, MailItem[]> task = new AsyncTask<Void, Integer, MailItem[]>() {
             @Override
-            protected MailItem[] doInBackground(Folder... folders) {
-                Folder folder = folders[0];
-                try {
-                    if (!folder.isOpen()) {
-                        folder.open(Folder.READ_WRITE);
-                    }
-                    int totalMessage = folder.getMessageCount();
-                    int lastMessageIndex = totalMessage - Shared.MAX_MESSAGES + 1;
-                    if (lastMessageIndex < 1)
-                        lastMessageIndex = 1;
-                    Message[] messages = folder.getMessages(lastMessageIndex, totalMessage);
-                    MailItem[] items = new MailItem[messages.length];
-                    for (int i = 0; i < messages.length; i++) {
-                        Multipart mp = (Multipart) messages[i].getContent();
-                        BodyPart bp = mp.getBodyPart(0);
-                        String content = (String) bp.getContent();
-                        items[i] = new MailItem(messages[i].getFrom()[0].toString(),messages[i].getSubject(),
-                                messages[i].getSentDate(),content);
-                    }
-                    return items;
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
+            protected MailItem[] doInBackground(Void... voids) {
+                return Shared.getInstance().getMailItems(label);
             }
 
             @Override
@@ -94,7 +69,7 @@ public class FolderFragment extends android.app.Fragment {
                 lv.setAdapter(new CustomAdapter(getContext(), mailItems));
             }
         };
-        task.execute(data);
+        task.execute();
         return v;
     }
 }
