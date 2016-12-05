@@ -176,11 +176,11 @@ public class ReadMailActivity extends AppCompatActivity {
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }
-//                try {
-//                    inbox.close(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    inbox.close(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 return new String[]{r_subject, r_adr, r_content, r_recipients, r_date};
 
@@ -221,22 +221,6 @@ public class ReadMailActivity extends AppCompatActivity {
         };
         task.execute();
 
-    }
-
-    private void delete(){
-        Folder inbox = null;
-        Intent mIntent  = getIntent();
-        String folder = mIntent.getStringExtra("Folder");
-        int index = mIntent.getIntExtra("Index",0);
-        try {
-            inbox = Shared.getInstance().getStore().getFolder(folder);
-            inbox.open(Folder.READ_WRITE);
-            Message msg  = Shared.getInstance().getMessagesFolder(folder)[index];
-            msg.setFlag(Flags.Flag.DELETED, true);
-            inbox.close(true);
-        } catch (Exception e){
-
-        }
     }
 
 
