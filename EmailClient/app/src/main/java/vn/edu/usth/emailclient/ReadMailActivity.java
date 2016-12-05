@@ -88,12 +88,12 @@ public class ReadMailActivity extends AppCompatActivity {
                 return true;
             case R.id.move:
                 move = 1;
-                read();
+//                read();
                 finish();
                 return true;
             case R.id.delete:
                 delete = 1;
-                read();
+//                read();
                 finish();
                 return true;
             case R.id.forward:
@@ -166,8 +166,8 @@ public class ReadMailActivity extends AppCompatActivity {
                     if (delete == 1) {
                         msg.setFlag(Flags.Flag.DELETED, true);
                     }
+                    Folder dfolder = Shared.getInstance().getStore().getFolder("[Gmail]/Spam");
                     if (move ==1){
-                        Folder dfolder = Shared.getInstance().getStore().getFolder("[Gmail]/Spam");
                         if (!dfolder.exists())
                             dfolder.create(Folder.HOLDS_MESSAGES);
                         inbox.copyMessages(new Message[]{msg}, dfolder);
