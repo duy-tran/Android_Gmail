@@ -16,6 +16,7 @@
             android:inputType="text"
             android:ems="10"
             android:id="@+id/user_name"
+            android:text="Anh Khanh He"
             android:hint="@string/user_name"/>
         <EditText
             android:layout_width="match_parent"
@@ -23,6 +24,7 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/emailaddr"
+            android:text="anhkhanhhe@gmail.com"
             android:hint="@string/email_address"/>
         <EditText
             android:layout_width="match_parent"
@@ -30,6 +32,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:text="vip12345"
             android:id="@+id/password" />
         <Button
             android:layout_height="wrap_content"

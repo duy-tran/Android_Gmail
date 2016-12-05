@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         loadAllFolder();
-        addFragment("Inbox");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,28 +64,21 @@ public class MainActivity extends AppCompatActivity
 
     private void loadAllFolder(){
         System.out.println("Loading all folder");
-        AsyncTask<Void, Integer, Message[]> task = new AsyncTask<Void, Integer, Message[]>() {
+        AsyncTask<Void, Integer, Folder> task = new AsyncTask<Void, Integer, Folder>() {
             @Override
-            protected Message[] doInBackground(Void... voids) {
+            protected Folder doInBackground(Void... voids) {
                 Store store = Shared.getInstance().getStore();
                 try {
-                    Folder inboxFolder = store.getFolder("INBOX");
-                    inboxFolder.open(Folder.READ_ONLY);
-                    int totalMessage = inboxFolder.getMessageCount();
-                    int lastMessageIndex = totalMessage-MAX_MESSAGES+1;
-                    if (lastMessageIndex<1)
-                        lastMessageIndex=1;
-                    Message[] messages = inboxFolder.getMessages(lastMessageIndex,totalMessage);
-                    return messages;
+                    return store.getFolder(Shared.folderInbox);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
-
             @Override
-            protected void onPostExecute(Message[] messages) {
-                Shared.getInstance().setMessagesFolder("INBOX",messages);
+            protected void onPostExecute(Folder folder) {
+                Shared.getInstance().setMessagesFolder(Shared.folderInbox,folder);
+                addFragment(Shared.folderInbox);
             }
         };
         task.execute();
