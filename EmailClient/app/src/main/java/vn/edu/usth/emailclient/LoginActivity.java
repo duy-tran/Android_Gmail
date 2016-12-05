@@ -1,5 +1,6 @@
 package vn.edu.usth.emailclient;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.Properties;
@@ -28,6 +30,7 @@ import javax.mail.Store;
 public class LoginActivity extends AppCompatActivity{
     private String userEmail;
     private String userPassword;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,12 +45,14 @@ public class LoginActivity extends AppCompatActivity{
         if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.missing_info), Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_in), Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_in), Toast.LENGTH_LONG);
+            toast.show();
             if (login()){
                 Shared.getInstance().setUserEmail(userEmail);
                 Shared.getInstance().setUserPassword(userPassword);
                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                 getApplicationContext().startActivity(myIntent);
+                toast.cancel();
             } else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.wrong_info), Toast.LENGTH_LONG).show();
             }

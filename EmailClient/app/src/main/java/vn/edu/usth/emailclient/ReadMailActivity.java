@@ -40,6 +40,7 @@ public class ReadMailActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private int key;
+    private int move;
     private String s = null;
     private String s1 = null;
     private String s2 = null;
@@ -79,8 +80,10 @@ public class ReadMailActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.refresh:
-
+            case R.id.move:
+                move = 1;
+                read();
+                finish();
                 return true;
             case R.id.delete:
                 key = 1;
@@ -129,7 +132,6 @@ public class ReadMailActivity extends AppCompatActivity {
                 try {
                     Session session = Session.getInstance(props, null);
                     Store store = session.getStore();
-
                     store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
                     inbox = store.getFolder("INBOX");
                     inbox.open(Folder.READ_WRITE);
@@ -164,7 +166,15 @@ public class ReadMailActivity extends AppCompatActivity {
                         msg.setFlag(Flags.Flag.DELETED, true);
 //                        inbox.close(true);
                     }
-
+                    if (move ==1){
+                        Folder dfolder = store.getFolder("[Gmail]/Spam");
+                        if (!dfolder.exists())
+                            dfolder.create(Folder.HOLDS_MESSAGES);
+                        inbox.copyMessages(new Message[]{msg}, dfolder);
+                        msg.setFlag(Flags.Flag.DELETED, true);
+                    }
+                    move = 0;
+                    key = 0;
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }

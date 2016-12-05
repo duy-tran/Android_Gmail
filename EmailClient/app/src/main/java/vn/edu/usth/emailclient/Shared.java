@@ -24,11 +24,19 @@ public class Shared {
         String: Folder name
         Message[]: Array of messages in that folder
      */
-    private HashMap<String, Folder> messagesFolder = new HashMap<>();
+    private HashMap<String, Message[]> messagesFolder = new HashMap<>();
+
+    private HashMap<String, MailItem[]> mailItems = new HashMap<>();
 
     public static final int MAX_MESSAGES = 10;
 
     public static final String folderInbox = "Inbox";
+    public static final String folderSent = "[Gmail]/Sent Mail";
+    public static final String folderDraft = "[Gmail]/Drafts";
+    public static final String folderSpam = "[Gmail]/Spam";
+    public static final String folderTrash = "[Gmail]/Trash";
+
+    public static final String[] folderNames = {folderInbox,folderSent,folderDraft,folderSpam,folderTrash};
 
     public static Shared getInstance(){
         if (instance == null) {
@@ -37,15 +45,23 @@ public class Shared {
         return instance;
     }
 
-    public Folder getMessagesFolder(String folderName){
+    public MailItem[] getMailItems(String folderName) {
+        return mailItems.get(folderName);
+    }
+
+    public void setMailItems(String folderName, MailItem[] mailList) {
+        mailItems.put(folderName,mailList);
+    }
+
+    public Message[] getMessagesFolder(String folderName){
         if (messagesFolder.get(folderName) != null) {
             return messagesFolder.get(folderName);
         }
         return null;
     }
 
-    public void setMessagesFolder(String folderName, Folder folder){
-        messagesFolder.put(folderName,folder);
+    public void setMessagesFolder(String folderName, Message[] messages){
+        messagesFolder.put(folderName,messages);
     }
 
     public Authenticator getAuthenticator(){
