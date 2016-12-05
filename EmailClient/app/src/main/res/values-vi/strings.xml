@@ -29,4 +29,5 @@
     <string name="mail_sent">Đã gửi</string>
     <string name="mail_sent_fail">Gửi thất bại</string>
     <string name="user_name">Tên của bạn</string>
+    <string name="loading">Đang tải</string>
 </resources>

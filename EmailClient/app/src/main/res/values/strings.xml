@@ -45,4 +45,5 @@
     <string name="mail_sent_fail">Failed to send mail</string>
     <string name="user_name">Your name</string>
     <string name="delete">delete</string>
+    <string name="loading">Loading, please wait</string>
 </resources>

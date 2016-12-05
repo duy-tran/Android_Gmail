@@ -56,20 +56,10 @@ public class FolderFragment extends android.app.Fragment {
             label = Shared.folderInbox;
         }
         System.out.println("Label = "+label);
-        final View v = inflater.inflate(R.layout.folder_fragment, container, false);
-        AsyncTask<Void, Integer, MailItem[]> task = new AsyncTask<Void, Integer, MailItem[]>() {
-            @Override
-            protected MailItem[] doInBackground(Void... voids) {
-                return Shared.getInstance().getMailItems(label);
-            }
-
-            @Override
-            protected void onPostExecute(MailItem[] mailItems) {
-                ListView lv = (ListView) v.findViewById(R.id.list_mail);
-                lv.setAdapter(new CustomAdapter(getContext(), mailItems));
-            }
-        };
-        task.execute();
+        View v = inflater.inflate(R.layout.folder_fragment, container, false);
+        MailItem[] mailItems = Shared.getInstance().getMailItems(label);
+        ListView lv = (ListView) v.findViewById(R.id.list_mail);
+        lv.setAdapter(new CustomAdapter(getContext(), mailItems));
         return v;
     }
 }

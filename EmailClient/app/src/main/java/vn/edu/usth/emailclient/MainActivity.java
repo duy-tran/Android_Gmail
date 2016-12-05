@@ -75,14 +75,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadFolder(final String label){
-        System.out.println("Loading all folder");
+        System.out.println("Loading "+label);
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", getResources().getString(R.string.loading), true);
+        progressDialog.show();
         AsyncTask<Void, Integer, Void> task = new AsyncTask<Void, Integer, Void>() {
-            @Override
-            protected void onProgressUpdate(Integer... values) {
-                ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
-                        "Loading. Please wait...", true);
-            }
-
             @Override
             protected Void doInBackground(Void... voids) {
                 Store store = Shared.getInstance().getStore();
@@ -115,7 +111,8 @@ public class MainActivity extends AppCompatActivity
             }
             @Override
             protected void onPostExecute(Void voids) {
-                addFragment(Shared.folderInbox);
+                progressDialog.dismiss();
+                addFragment(label);
             }
         };
         task.execute();
