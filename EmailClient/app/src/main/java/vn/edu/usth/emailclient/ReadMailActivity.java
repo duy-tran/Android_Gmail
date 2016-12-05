@@ -165,8 +165,15 @@ public class ReadMailActivity extends AppCompatActivity {
                     r_subject = mailItem.getSubject();
                     r_content = mailItem.getContent();
                     r_date = mailItem.getDate().toString();
-                    if (delete == 1) {
+                    Folder dfolder1 = Shared.getInstance().getStore().getFolder("[Gmail]/Trash");
+                    if (delete == 1 ) {
+
+                        
+                        if (!dfolder1.exists())
+                            dfolder1.create(Folder.HOLDS_MESSAGES);
+                        inbox.copyMessages(new Message[]{msg}, dfolder1);
                         msg.setFlag(Flags.Flag.DELETED, true);
+
                     }
                     Folder dfolder = Shared.getInstance().getStore().getFolder("[Gmail]/Spam");
                     if (move ==1){
