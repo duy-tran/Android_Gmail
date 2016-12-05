@@ -1,12 +1,11 @@
 package vn.edu.usth.emailclient;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -20,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        addFragment("I");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +58,11 @@ public class MainActivity extends AppCompatActivity
         TextView email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_email);
         email.setText(Shared.getInstance().getUserEmail());
 
-        //FolderFragment.newInstance("Inbox");
-        Bundle args = new Bundle();
-        args.putString("label", "inbox");
-        FolderFragment.instantiate(this, FolderFragment.class.getName(), args);
+    }
+
+    private void addFragment(String label){
+        Fragment folderFragment = FolderFragment.newInstance(label);
+        getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
     }
 
     @Override
@@ -114,13 +113,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            Intent myIntent = new Intent(getApplicationContext(), ReadMailActivity.class);
-            getApplicationContext().startActivity(myIntent);
-
+            addFragment("Inbox");
         } else if (id == R.id.nav_sent) {
-
+            addFragment("Sent");
         } else if (id == R.id.nav_draft) {
-
+            addFragment("Draft");
         } else if (id == R.id.nav_spam) {
 
         } else if (id == R.id.nav_trash) {
