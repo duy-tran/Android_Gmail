@@ -1,6 +1,8 @@
 package vn.edu.usth.emailclient;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,9 +21,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Store;
 
 import vn.edu.usth.emailclient.Fragment.FolderFragment;
@@ -29,7 +36,7 @@ import vn.edu.usth.emailclient.Fragment.FolderFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static int MAX_MESSAGES = 10;
+    boolean addedFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadAllFolder();
+        loadFolder(Shared.folderInbox);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,23 +69,45 @@ public class MainActivity extends AppCompatActivity
         email.setText(Shared.getInstance().getUserEmail());
     }
 
-    private void loadAllFolder(){
-        System.out.println("Loading all folder");
-        AsyncTask<Void, Integer, Folder> task = new AsyncTask<Void, Integer, Folder>() {
+    private void loadFolder(final String label){
+        System.out.println("Loading "+label);
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", getResources().getString(R.string.loading), true);
+        progressDialog.show();
+        AsyncTask<Void, Integer, Void> task = new AsyncTask<Void, Integer, Void>() {
             @Override
-            protected Folder doInBackground(Void... voids) {
+            protected Void doInBackground(Void... voids) {
                 Store store = Shared.getInstance().getStore();
+                Folder folder = null;
                 try {
-                    return store.getFolder(Shared.folderInbox);
+                    folder = store.getFolder(label);
+                    if (!folder.isOpen()) {
+                        folder.open(Folder.READ_WRITE);
+                    }
+                    int totalMessage = folder.getMessageCount();
+                    int lastMessageIndex = totalMessage - Shared.MAX_MESSAGES + 1;
+                    if (lastMessageIndex < 1)
+                        lastMessageIndex = 1;
+                    Message[] messages = folder.getMessages(lastMessageIndex, totalMessage);
+                    MailItem[] items = new MailItem[messages.length];
+                    for (int i = 0; i < messages.length; i++) {
+                        Multipart mp = (Multipart) messages[i].getContent();
+                        BodyPart bp = mp.getBodyPart(0);
+                        String content = (String) bp.getContent();
+                        items[i] = new MailItem(messages[i].getFrom()[0].toString(),messages[i].getSubject(),
+                                messages[i].getSentDate(),content);
+                    }
+                    Shared.getInstance().setMailItems(label,items);
                 } catch (MessagingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return null;
             }
             @Override
-            protected void onPostExecute(Folder folder) {
-                Shared.getInstance().setMessagesFolder(Shared.folderInbox,folder);
-                addFragment(Shared.folderInbox);
+            protected void onPostExecute(Void voids) {
+                progressDialog.dismiss();
+                addFragment(label);
             }
         };
         task.execute();
@@ -86,7 +115,12 @@ public class MainActivity extends AppCompatActivity
 
     private void addFragment(String label){
         Fragment folderFragment = FolderFragment.newInstance(label);
-        getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
+        if (!addedFragment) {
+            getFragmentManager().beginTransaction().replace(R.id.mail_list,folderFragment).commit();
+        } else {
+            getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
+            addedFragment = true;
+        }
     }
 
     @Override
@@ -142,22 +176,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            addFragment("Inbox");
+            loadFolder(Shared.folderInbox);
         } else if (id == R.id.nav_sent) {
-            addFragment("Sent");
+            loadFolder(Shared.folderSent);
         } else if (id == R.id.nav_draft) {
-            addFragment("Draft");
+            loadFolder(Shared.folderDraft);
         } else if (id == R.id.nav_spam) {
-
+            loadFolder(Shared.folderSpam);
         } else if (id == R.id.nav_trash) {
-
+            loadFolder(Shared.folderTrash);
         } else if (id == R.id.nav_logout) {
             new AlertDialog.Builder(this)
                     .setMessage(getResources().getString(R.string.confirmLogout))
                     .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_out), Toast.LENGTH_LONG).show();
                             Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
                             getApplicationContext().startActivity(myIntent);
                         }

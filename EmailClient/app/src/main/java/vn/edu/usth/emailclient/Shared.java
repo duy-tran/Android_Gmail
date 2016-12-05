@@ -26,15 +26,31 @@ public class Shared {
      */
     private HashMap<String, Folder> messagesFolder = new HashMap<>();
 
+    private HashMap<String, MailItem[]> mailItems = new HashMap<>();
+
     public static final int MAX_MESSAGES = 10;
 
     public static final String folderInbox = "Inbox";
+    public static final String folderSent = "[Gmail]/Sent Mail";
+    public static final String folderDraft = "[Gmail]/Drafts";
+    public static final String folderSpam = "[Gmail]/Spam";
+    public static final String folderTrash = "[Gmail]/Trash";
+
+    public static final String[] folderNames = {folderInbox,folderSent,folderDraft,folderSpam,folderTrash};
 
     public static Shared getInstance(){
         if (instance == null) {
             instance = new Shared();
         }
         return instance;
+    }
+
+    public MailItem[] getMailItems(String folderName) {
+        return mailItems.get(folderName);
+    }
+
+    public void setMailItems(String folderName, MailItem[] mailList) {
+        mailItems.put(folderName,mailList);
     }
 
     public Folder getMessagesFolder(String folderName){
