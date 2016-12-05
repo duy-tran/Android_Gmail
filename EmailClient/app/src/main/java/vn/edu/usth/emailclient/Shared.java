@@ -16,16 +16,21 @@ import javax.mail.Store;
  */
 
 public class Shared {
+
     private static Shared instance;
+
+    public static Shared getInstance(){
+        if (instance == null) {
+            instance = new Shared();
+        }
+        return instance;
+    }
+
     private String userName = "";
     private String userEmail;
     private String userPassword;
     private Store store;
-    /*
-        HashMap messages
-        String: Folder name
-        Message[]: Array of messages in that folder
-     */
+
     private HashMap<String, Message[]> messagesFolder = new HashMap<>();
 
     private HashMap<String, MailItem[]> mailItems = new HashMap<>();
@@ -54,13 +59,6 @@ public class Shared {
     }
 
     public static final String[] folderNames = {folderInbox,folderSent,folderDraft,folderSpam,folderTrash};
-
-    public static Shared getInstance(){
-        if (instance == null) {
-            instance = new Shared();
-        }
-        return instance;
-    }
 
     public MailItem[] getMailItems(String folderName) {
         return mailItems.get(folderName);

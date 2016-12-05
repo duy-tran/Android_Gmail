@@ -234,22 +234,6 @@ public class ReadMailActivity extends AppCompatActivity {
 
     }
 
-    private void delete(){
-        Folder inbox = null;
-        Intent mIntent  = getIntent();
-        String folder = mIntent.getStringExtra("Folder");
-        int index = mIntent.getIntExtra("Index",0);
-        try {
-            inbox = Shared.getInstance().getStore().getFolder(folder);
-            inbox.open(Folder.READ_WRITE);
-            Message msg  = Shared.getInstance().getMessagesFolder(folder)[index];
-            msg.setFlag(Flags.Flag.DELETED, true);
-            inbox.close(true);
-        } catch (Exception e){
-
-        }
-    }
-
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
