@@ -12,6 +12,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -52,7 +53,7 @@ public class ReadMailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getResources().getString(R.string.readmail));
+        setTitle("");
         setContentView(R.layout.activity_readmail);
 
         Toolbar myChildToolbar =
@@ -126,8 +127,7 @@ public class ReadMailActivity extends AppCompatActivity {
 
 
     public void read() {
-        final ProgressDialog progressDialog = ProgressDialog.show(this, "", getResources().getString(R.string.loading), true);
-        progressDialog.show();
+        Toast.makeText(getApplicationContext(),getResources().getString(R.string.loading),Toast.LENGTH_SHORT).show();
         AsyncTask<String, Integer, String[]> task = new AsyncTask<String, Integer, String[]>() {
             @Override
             protected void onPreExecute() {
@@ -176,11 +176,11 @@ public class ReadMailActivity extends AppCompatActivity {
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }
-                try {
-                    inbox.close(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    inbox.close(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
                 return new String[]{r_subject, r_adr, r_content, r_recipients, r_date};
 
@@ -193,7 +193,6 @@ public class ReadMailActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String[] s) {
-                progressDialog.dismiss();
                 TextView from = (TextView)findViewById(R.id.mail_from_value);
                 from.setText(s[1]);
 
@@ -222,6 +221,22 @@ public class ReadMailActivity extends AppCompatActivity {
         };
         task.execute();
 
+    }
+
+    private void delete(){
+        Folder inbox = null;
+        Intent mIntent  = getIntent();
+        String folder = mIntent.getStringExtra("Folder");
+        int index = mIntent.getIntExtra("Index",0);
+        try {
+            inbox = Shared.getInstance().getStore().getFolder(folder);
+            inbox.open(Folder.READ_WRITE);
+            Message msg  = Shared.getInstance().getMessagesFolder(folder)[index];
+            msg.setFlag(Flags.Flag.DELETED, true);
+            inbox.close(true);
+        } catch (Exception e){
+
+        }
     }
 
 

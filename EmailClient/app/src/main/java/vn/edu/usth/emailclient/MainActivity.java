@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle(Shared.getInstance().getFolderName(this,Shared.folderInbox));
         if (!loaded) {
             loadFolder(Shared.folderInbox);
             loaded = true;
