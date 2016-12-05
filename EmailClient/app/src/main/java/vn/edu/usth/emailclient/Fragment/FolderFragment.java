@@ -59,7 +59,7 @@ public class FolderFragment extends android.app.Fragment {
         View v = inflater.inflate(R.layout.folder_fragment, container, false);
         MailItem[] mailItems = Shared.getInstance().getMailItems(label);
         ListView lv = (ListView) v.findViewById(R.id.list_mail);
-        lv.setAdapter(new CustomAdapter(getContext(), mailItems));
+        lv.setAdapter(new CustomAdapter(getContext(), mailItems, Shared.getInstance().getMessagesFolder(label)));
         return v;
     }
 }

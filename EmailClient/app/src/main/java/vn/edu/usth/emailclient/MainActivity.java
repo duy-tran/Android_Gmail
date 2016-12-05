@@ -25,11 +25,13 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.mail.BodyPart;
+import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Store;
+import javax.mail.internet.MimeMultipart;
 
 import vn.edu.usth.emailclient.Fragment.FolderFragment;
 
@@ -90,13 +92,21 @@ public class MainActivity extends AppCompatActivity
                     Message[] messages = folder.getMessages(lastMessageIndex, totalMessage);
                     MailItem[] items = new MailItem[messages.length];
                     for (int i = 0; i < messages.length; i++) {
-                        Multipart mp = (Multipart) messages[i].getContent();
-                        BodyPart bp = mp.getBodyPart(0);
-                        String content = (String) bp.getContent();
+                        Object obj = messages[i].getContent();
+                        String content;
+                        if (obj instanceof Multipart) {
+                            Multipart mp = (Multipart) messages[i].getContent();
+                            BodyPart bp = mp.getBodyPart(0);
+                            content = (String) bp.getContent();
+                        } else {
+                            content = (String) messages[i].getContent();
+                        }
+                        //String content = (String) ((Multipart) messages[i].getContent()).getBodyPart(0).getContent();
                         items[i] = new MailItem(messages[i].getFrom()[0].toString(),messages[i].getSubject(),
-                                messages[i].getSentDate(),content);
+                                messages[i].getSentDate(),content, messages[i].isSet(Flags.Flag.SEEN));
                     }
                     Shared.getInstance().setMailItems(label,items);
+                    Shared.getInstance().setMessagesFolder(label,messages);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

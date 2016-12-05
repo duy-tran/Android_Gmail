@@ -24,7 +24,7 @@ public class Shared {
         String: Folder name
         Message[]: Array of messages in that folder
      */
-    private HashMap<String, Folder> messagesFolder = new HashMap<>();
+    private HashMap<String, Message[]> messagesFolder = new HashMap<>();
 
     private HashMap<String, MailItem[]> mailItems = new HashMap<>();
 
@@ -53,15 +53,15 @@ public class Shared {
         mailItems.put(folderName,mailList);
     }
 
-    public Folder getMessagesFolder(String folderName){
+    public Message[] getMessagesFolder(String folderName){
         if (messagesFolder.get(folderName) != null) {
             return messagesFolder.get(folderName);
         }
         return null;
     }
 
-    public void setMessagesFolder(String folderName, Folder folder){
-        messagesFolder.put(folderName,folder);
+    public void setMessagesFolder(String folderName, Message[] messages){
+        messagesFolder.put(folderName,messages);
     }
 
     public Authenticator getAuthenticator(){
