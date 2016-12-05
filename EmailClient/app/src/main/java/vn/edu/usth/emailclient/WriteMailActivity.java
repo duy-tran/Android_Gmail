@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -62,33 +64,37 @@ public class WriteMailActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Bundle b = getIntent().getExtras();
-        if(b!=null){
-            String subject = "Fwd: " + b.getString("subject");
-            String content = " Forwarded message:  " + System.getProperty ("line.separator") + System.getProperty ("line.separator") + b.getString("content");
-            EditText fwsubject = (EditText)findViewById(R.id.subject);
-            fwsubject.setText(subject);
+        Log.i("test", b.getString("type"));
+        String key = b.getString("type");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if(Objects.equals(key, "fw")){
+                Log.i("test", b.getString("type"));
+                String subject = "Fwd: " + b.getString("subject");
+                String content = " Forwarded message:  " + System.getProperty ("line.separator") + System.getProperty ("line.separator") + b.getString("content");
+                EditText fwsubject = (EditText)findViewById(R.id.subject);
+                fwsubject.setText(subject);
 
-            EditText fwcontent = (EditText)findViewById(R.id.content);
-            fwcontent.setText(content);
+                EditText fwcontent = (EditText)findViewById(R.id.content);
+                fwcontent.setText(content);}
         }
+//        Bundle b1 = getIntent().getExtras();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if(Objects.equals(key, "re")){
+                String subject = "RE: " + b.getString("subject");
+                String receiver = b.getString("receiver");
+                String date = b.getString("date");
+                String content = System.getProperty("line.separator") + System.getProperty("line.separator") + "------------" +
+                        System.getProperty("line.separator") + "On " + date + ", " + receiver + " wrote:"
+                        + System.getProperty("line.separator") + b.getString("content");
+                EditText resubject = (EditText)findViewById(R.id.subject);
+                resubject.setText(subject);
+                EditText re_receiver = (EditText)findViewById(R.id.receiver);
+                re_receiver.setText(receiver);
 
-        Bundle b1 = getIntent().getExtras();
-        if(b1!=null){
-            String subject = "RE: " + b1.getString("subject");
-            String receiver = b1.getString("receiver");
-            String date = b1.getString("date");
-            String content = System.getProperty ("line.separator") + System.getProperty ("line.separator") +"------------"+
-                    System.getProperty ("line.separator")+ "On "+ date + ", " + receiver + " wrote:"
-                    + System.getProperty("line.separator") + b1.getString("content");
-            EditText resubject = (EditText)findViewById(R.id.subject);
-            resubject.setText(subject);
-            EditText re_receiver = (EditText)findViewById(R.id.receiver);
-            re_receiver.setText(receiver);
-
-            EditText recontent = (EditText)findViewById(R.id.content);
-            recontent.setText(content);
+                EditText recontent = (EditText)findViewById(R.id.content);
+                recontent.setText(content);
+            }
         }
-
 
 
         handler = new Handler(Looper.getMainLooper()) {
