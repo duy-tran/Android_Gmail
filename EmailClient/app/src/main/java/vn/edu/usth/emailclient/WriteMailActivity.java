@@ -57,6 +57,36 @@ public class WriteMailActivity extends AppCompatActivity {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
+        Bundle b = getIntent().getExtras();
+        if(b!=null){
+            String subject = "Fwd: " + b.getString("subject");
+            String content = " Forwarded message:  " + System.getProperty ("line.separator") + System.getProperty ("line.separator") + b.getString("content");
+            EditText fwsubject = (EditText)findViewById(R.id.subject);
+            fwsubject.setText(subject);
+
+            EditText fwcontent = (EditText)findViewById(R.id.content);
+            fwcontent.setText(content);
+        }
+
+        Bundle b1 = getIntent().getExtras();
+        if(b1!=null){
+            String subject = "RE: " + b1.getString("subject");
+            String receiver = b1.getString("receiver");
+            String date = b1.getString("date");
+            String content = System.getProperty ("line.separator") + System.getProperty ("line.separator") +"------------"+
+                    System.getProperty ("line.separator")+ "On "+ date + ", " + receiver + " wrote:"
+                    + System.getProperty("line.separator") + b1.getString("content");
+            EditText resubject = (EditText)findViewById(R.id.subject);
+            resubject.setText(subject);
+            EditText re_receiver = (EditText)findViewById(R.id.receiver);
+            re_receiver.setText(receiver);
+
+            EditText recontent = (EditText)findViewById(R.id.content);
+            recontent.setText(content);
+        }
+
+
+
         handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
@@ -102,7 +132,7 @@ public class WriteMailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void sendEmail(String receiverEmail, String receiverCCEmail, String subject, String content) {
+    protected void sendEmail(String receiverEmail, String receiverCCEmail, String subject, String content) {
         AsyncTask<String, Integer, Void> task = new AsyncTask<String, Integer, Void>() {
             @Override
             protected Void doInBackground(String... strings) {

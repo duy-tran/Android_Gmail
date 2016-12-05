@@ -39,7 +39,7 @@
     <string name="logging_out">Logging out...</string>
     <string name="readmail">Read mail</string>
     <string name="reply">Reply</string>
-    <string name="foward">foward</string>
+    <string name="forward">forward</string>
     <string name="mail_sending">Sending mail</string>
     <string name="mail_sent">Mail sent</string>
     <string name="mail_sent_fail">Failed to send mail</string>

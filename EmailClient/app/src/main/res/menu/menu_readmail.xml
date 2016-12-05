@@ -7,9 +7,9 @@
         android:title="@string/delete"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/foward"
+        android:id="@+id/forward"
         android:icon="@drawable/ic_menu_draft"
-        android:title="@string/foward"
+        android:title="@string/forward"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/reply"
