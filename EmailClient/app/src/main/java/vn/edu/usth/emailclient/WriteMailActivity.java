@@ -64,11 +64,12 @@ public class WriteMailActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Bundle b = getIntent().getExtras();
-        Log.i("test", b.getString("type"));
+        if(b!=null){
+
+
         String key = b.getString("type");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if(Objects.equals(key, "fw")){
-                Log.i("test", b.getString("type"));
                 String subject = "Fwd: " + b.getString("subject");
                 String content = " Forwarded message:  " + System.getProperty ("line.separator") + System.getProperty ("line.separator") + b.getString("content");
                 EditText fwsubject = (EditText)findViewById(R.id.subject);
@@ -79,21 +80,22 @@ public class WriteMailActivity extends AppCompatActivity {
         }
 //        Bundle b1 = getIntent().getExtras();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if(Objects.equals(key, "re")){
+            if (Objects.equals(key, "re")) {
                 String subject = "RE: " + b.getString("subject");
                 String receiver = b.getString("receiver");
                 String date = b.getString("date");
                 String content = System.getProperty("line.separator") + System.getProperty("line.separator") + "------------" +
                         System.getProperty("line.separator") + "On " + date + ", " + receiver + " wrote:"
                         + System.getProperty("line.separator") + b.getString("content");
-                EditText resubject = (EditText)findViewById(R.id.subject);
+                EditText resubject = (EditText) findViewById(R.id.subject);
                 resubject.setText(subject);
-                EditText re_receiver = (EditText)findViewById(R.id.receiver);
+                EditText re_receiver = (EditText) findViewById(R.id.receiver);
                 re_receiver.setText(receiver);
 
-                EditText recontent = (EditText)findViewById(R.id.content);
+                EditText recontent = (EditText) findViewById(R.id.content);
                 recontent.setText(content);
             }
+        }
         }
 
 
