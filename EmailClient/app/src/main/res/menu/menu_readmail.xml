@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/forward"
-        android:icon="@drawable/ic_menu_draft"
+        android:icon="@drawable/ic_menu_forward"
         android:title="@string/forward"
         app:showAsAction="ifRoom"/>
     <item
@@ -18,7 +18,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/reply"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@drawable/ic_menu_reply"
         android:title="@string/reply"
         app:showAsAction="ifRoom"/>
 </menu>
