@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity
                     Message[] messages = folder.getMessages(lastMessageIndex, totalMessage);
                     MailItem[] items = new MailItem[messages.length];
                     for (int i = 0; i < messages.length; i++) {
+                        boolean ifRead = messages[i].isSet(Flags.Flag.SEEN);
                         Object obj = messages[i].getContent();
                         String content;
                         if (obj instanceof Multipart) {
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                         }
                         //String content = (String) ((Multipart) messages[i].getContent()).getBodyPart(0).getContent();
                         items[i] = new MailItem(messages[i].getFrom()[0].toString(),messages[i].getSubject(),
-                                messages[i].getSentDate(),content, messages[i].isSet(Flags.Flag.SEEN));
+                                messages[i].getSentDate(),content,ifRead);
                     }
                     Shared.getInstance().setMailItems(label,items);
                     Shared.getInstance().setMessagesFolder(label,messages);

@@ -73,14 +73,13 @@ public class CustomAdapter extends BaseAdapter {
         holder.time.setText(mailItems[index].getTime());
         holder.subject.setText(mailItems[index].getSubjectShort());
         holder.content.setText(mailItems[index].getContentShort());
-        System.out.println("If Read = "+mailItems[index].getIfRead());
         if (!mailItems[index].getIfRead()) {
             holder.sender.setTypeface(holder.sender.getTypeface(), Typeface.BOLD);
             holder.subject.setTypeface(holder.subject.getTypeface(), Typeface.BOLD);
             holder.time.setTypeface(holder.time.getTypeface(), Typeface.BOLD);
-            holder.sender.setTextColor(Color.parseColor("#000"));
-            holder.subject.setTextColor(Color.parseColor("#000"));
-            holder.time.setTextColor(Color.parseColor("#00B"));
+            holder.sender.setTextColor(Color.parseColor("#000000"));
+            holder.subject.setTextColor(Color.parseColor("#000000"));
+            holder.time.setTextColor(Color.parseColor("#0000BB"));
         }
 
         return rowView;
