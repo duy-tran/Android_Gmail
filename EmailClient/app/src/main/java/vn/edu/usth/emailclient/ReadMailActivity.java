@@ -39,13 +39,13 @@ public class ReadMailActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private int key;
+    private int delete;
     private int move;
-    private String s = null;
-    private String s1 = null;
-    private String s2 = null;
-    private String s3 = null;
-    private String s4 = null;
+    private String r_subject = null;
+    private String r_adr = null;
+    private String r_content = null;
+    private String r_recipients = null;
+    private String r_date = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +86,15 @@ public class ReadMailActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.delete:
-                key = 1;
+                delete = 1;
                 read();
                 finish();
                 return true;
             case R.id.forward:
                 Intent intent = new Intent(ReadMailActivity.this, WriteMailActivity.class);
                 Bundle b = new Bundle();
-                b.putString("content", s2.toString());
-                b.putString("subject", s.toString());
+                b.putString("content", r_content.toString());
+                b.putString("subject", r_subject.toString());
                 intent.putExtras(b);
                 startActivity(intent);
                 finish();
@@ -102,10 +102,10 @@ public class ReadMailActivity extends AppCompatActivity {
             case R.id.reply:
                 Intent intent1 = new Intent(ReadMailActivity.this, WriteMailActivity.class);
                 Bundle b1 = new Bundle();
-                b1.putString("receiver", s1.toString() );
-                b1.putString("content", s2.toString());
-                b1.putString("subject", s.toString());
-                b1.putString("date", s4.toString());
+                b1.putString("receiver", r_adr.toString() );
+                b1.putString("content", r_content.toString());
+                b1.putString("subject", r_subject.toString());
+                b1.putString("date", r_date.toString());
                 intent1.putExtras(b1);
                 startActivity(intent1);
                 finish();
@@ -133,46 +133,27 @@ public class ReadMailActivity extends AppCompatActivity {
 
                 Folder inbox = null;
                 try {
-//                    Session session = Session.getInstance(props, null);
-//                    Store store = session.getStore();
-//                    store.connect("imap.gmail.com", Shared.getInstance().getUserEmail(), Shared.getInstance().getUserPassword());
                     inbox = Shared.getInstance().getStore().getFolder(folder);
                     inbox.open(Folder.READ_WRITE);
 
                     Message msg  = Shared.getInstance().getMessagesFolder(folder)[index];
                     MailItem mailItem = Shared.getInstance().getMailItems(folder)[index];
 
-                    //Message msg = inbox.getMessage(inbox.getMessageCount());
                     Address[] in = msg.getFrom();
-
 
                     Address[] out = msg.getAllRecipients();
                     for (Address address : in) {
-//                                System.out.println("FROM:" + address.toString());
-                        s1 = address.toString();
+                        r_adr = address.toString();
 
                     }
                     for (Address address : out) {
-//
-                        s3 = address.toString();
-
+                        r_recipients = address.toString();
                     }
-//                    Multipart mp = (Multipart) msg.getContent();
-                    s4 = mailItem.getDate().toString();
-//                    BodyPart bp = mp.getBodyPart(0);
-
-//                            System.out.println("SENT DATE:" + msg.getSentDate());
-
-//                    s = msg.getSubject();
-                    s = mailItem.getSubject();
-//                            subject.setText(msg.getSubject());
-//                            System.out.println("SUBJECT:" + msg.getSubject());
-//                    s2 = (String) bp.getContent();
-                    s2 = mailItem.getContent();
-//                            System.out.println("CONTENT:" + bp.getContent());
-                    if (key == 1) {
+                    r_subject = mailItem.getSubject();
+                    r_content = mailItem.getContent();
+                    r_date = mailItem.getDate().toString();
+                    if (delete == 1) {
                         msg.setFlag(Flags.Flag.DELETED, true);
-//                        inbox.close(true);
                     }
                     if (move ==1){
                         Folder dfolder = Shared.getInstance().getStore().getFolder("[Gmail]/Spam");
@@ -181,18 +162,16 @@ public class ReadMailActivity extends AppCompatActivity {
                         inbox.copyMessages(new Message[]{msg}, dfolder);
                         msg.setFlag(Flags.Flag.DELETED, true);
                     }
-                    move = 0;
-                    key = 0;
                 } catch (Exception mex) {
                     mex.printStackTrace();
                 }
                 try {
                     inbox.close(true);
-                } catch (MessagingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                return new String[]{s, s1, s2, s3, s4};
+                return new String[]{r_subject, r_adr, r_content, r_recipients, r_date};
 
             }
 
@@ -219,10 +198,11 @@ public class ReadMailActivity extends AppCompatActivity {
                 TextView content = (TextView) findViewById(R.id.content_value);
                 content.setText(s[2]);
                 content.setMovementMethod(new ScrollingMovementMethod());
-                if(key==1){
+                if(delete==1 || move ==1){
                     finish();
                 }
-                key = 0;
+                delete = 0;
+                move = 0;
 
             }
 
