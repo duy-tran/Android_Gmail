@@ -36,6 +36,8 @@ import vn.edu.usth.emailclient.Fragment.FolderFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    boolean addedFragment = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,11 +115,12 @@ public class MainActivity extends AppCompatActivity
 
     private void addFragment(String label){
         Fragment folderFragment = FolderFragment.newInstance(label);
-        getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
-    }
-
-    private void replaceFragment(String label){
-
+        if (!addedFragment) {
+            getFragmentManager().beginTransaction().replace(R.id.mail_list,folderFragment).commit();
+        } else {
+            getFragmentManager().beginTransaction().add(R.id.mail_list, folderFragment).commit();
+            addedFragment = true;
+        }
     }
 
     @Override
@@ -175,18 +178,17 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_sent) {
             loadFolder(Shared.folderSent);
         } else if (id == R.id.nav_draft) {
-
+            loadFolder(Shared.folderDraft);
         } else if (id == R.id.nav_spam) {
-
+            loadFolder(Shared.folderSpam);
         } else if (id == R.id.nav_trash) {
-
+            loadFolder(Shared.folderTrash);
         } else if (id == R.id.nav_logout) {
             new AlertDialog.Builder(this)
                     .setMessage(getResources().getString(R.string.confirmLogout))
                     .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logging_out), Toast.LENGTH_LONG).show();
                             Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
                             getApplicationContext().startActivity(myIntent);
                         }
