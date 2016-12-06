@@ -36,4 +36,5 @@
     <string name="move">Đánh dấu spam</string>
     <string name="readmail">Xem thư</string>
     <string name="reply">Trả lời</string>
+    <string name="changed_name">Sửa tên thành công</string>
 </resources>

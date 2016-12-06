@@ -48,4 +48,5 @@
     <string name="move">Move to spam</string>
     <string name="loading">Loading, please wait</string>
     <string name="change_user_name">Change user name</string>
+    <string name="changed_name">Changed name successfully</string>
 </resources>

@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Shared.getInstance().setUserName(newName);
 //                TextView textView = (TextView) findViewById(R.id.textView5);
 //                textView.setText("Current name: " + getInstance().getUserName());
-                Toast.makeText(getApplicationContext(), "User name changed successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.changed_name), Toast.LENGTH_LONG).show();
                 finish();
             }
         });

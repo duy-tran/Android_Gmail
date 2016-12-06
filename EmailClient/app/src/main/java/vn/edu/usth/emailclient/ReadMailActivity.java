@@ -54,7 +54,7 @@ public class ReadMailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("");
+        setTitle(getResources().getString(R.string.readmail));
         setContentView(R.layout.activity_readmail);
 
         Toolbar myChildToolbar =
